@@ -3,10 +3,7 @@ import { Security } from "./security";
 export async function sendDonationEmail(toEmail, pdfBase64, donorName) {
   
   try {  
-  console.log("Inicio del proceso de envío de correo electrónico");
   const apiKey = Security.RESEND_API_KEY;
-  console.log("API Key:", apiKey); 
-
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -33,7 +30,7 @@ export async function sendDonationEmail(toEmail, pdfBase64, donorName) {
     })
   });
   const result = await res.json();
-  console.log("Resultado del envío de correo:", result);
+  console.log("Correo enviado correctamente");
   return result;
 } catch (error) {
   console.error("Error sending donation email:", error);
