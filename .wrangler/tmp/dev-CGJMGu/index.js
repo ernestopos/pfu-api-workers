@@ -19850,10 +19850,10 @@ var init_index_es = __esm({
   }
 });
 
-// .wrangler/tmp/bundle-voIEGF/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-DtYhNr/middleware-loader.entry.ts
 init_modules_watch_stub();
 
-// .wrangler/tmp/bundle-voIEGF/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-DtYhNr/middleware-insertion-facade.js
 init_modules_watch_stub();
 
 // src/index.ts
@@ -30234,6 +30234,10 @@ var Task = external_exports.object({
   completed: external_exports.boolean().default(false),
   due_date: DateTime()
 });
+var PntegrityTemplate = external_exports.object({
+  currency: external_exports.string(),
+  amount: external_exports.string().regex(/^[0-9]+(\.[0-9]{2})?$/)
+});
 var PaypalDonation = external_exports.object({
   id: external_exports.string(),
   create_time: external_exports.string().datetime(),
@@ -38787,7 +38791,24 @@ var Security = class {
   static RESEND_API_KEY = "re_GfMXGiZy_FfpJp57iWMc3keCTybWrbxpf";
   static EMAIL_FROM = "pfu.info@peerkals.com";
   static EMAIL_PASS = "Asoquip68mnb.";
+  static SECRET_KEY = "test_integrity_iK5HB66h7QJYGE1jmQhwVF9sRh41dQSb";
 };
+async function generateUIIDD() {
+  const seg1 = Math.random().toString(16).substring(2, 8);
+  const seg2 = crypto.randomUUID().split("-")[1] + crypto.randomUUID().split("-")[2];
+  const seg3 = Date.now().toString(36);
+  return `${seg1}-${seg2}-${seg3}`;
+}
+__name(generateUIIDD, "generateUIIDD");
+async function hashSHA256(text2) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text2);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map((b2) => b2.toString(16).padStart(2, "0")).join("");
+  return hashHex;
+}
+__name(hashSHA256, "hashSHA256");
 
 // src/common/sendMail.ts
 async function sendDonationEmail(toEmail, pdfBase64, donorName) {
@@ -38972,13 +38993,68 @@ var UIIDDGeneratior = class extends OpenAPIRoute {
     };
   }
 };
-async function generateUIIDD() {
-  const seg1 = Math.random().toString(16).substring(2, 8);
-  const seg2 = crypto.randomUUID().split("-")[1] + crypto.randomUUID().split("-")[2];
-  const seg3 = Date.now().toString(36);
-  return `${seg1}-${seg2}-${seg3}`;
+
+// src/endpoints/signatureIntegrity.ts
+init_modules_watch_stub();
+var SignatureIntegrity = class extends OpenAPIRoute {
+  static {
+    __name(this, "SignatureIntegrity");
+  }
+  schema = {
+    tags: ["Generate signature integrity"],
+    summary: "Generate signature integrity for wompi transactions",
+    request: {
+      body: {
+        content: {
+          "application/json": {
+            schema: PntegrityTemplate
+          }
+        }
+      }
+    },
+    responses: {
+      "200": {
+        description: "Generate signature integrity successfully",
+        content: {
+          "application/json": {
+            schema: external_exports.object({
+              series: external_exports.object({
+                success: Bool(),
+                result: external_exports.object({
+                  task: Message
+                })
+              })
+            })
+          }
+        }
+      }
+    }
+  };
+  async handle(c4) {
+    const uiid = await generateUIIDD();
+    const data = await this.getValidatedData();
+    const donateData = data.body;
+    const signatureIntegrity = await generateSignatureIntegrity(donateData.currency, donateData.amount, uiid);
+    return {
+      success: true,
+      result: {
+        id: uiid,
+        signatureIntegrity
+      },
+      message: {
+        message: "Signature integrity generated successfully.",
+        description: "The signature integrity for the donation has been created successfully."
+      }
+    };
+  }
+};
+async function generateSignatureIntegrity(currency, amount, uiid) {
+  const fechaActual = (/* @__PURE__ */ new Date()).toISOString();
+  const rawValue = uiid.concat(amount).concat(currency).concat(fechaActual).concat(Security.SECRET_KEY.toString());
+  const hash = hashSHA256(rawValue);
+  return hash;
 }
-__name(generateUIIDD, "generateUIIDD");
+__name(generateSignatureIntegrity, "generateSignatureIntegrity");
 
 // src/index.ts
 var app = new Hono2();
@@ -38986,7 +39062,8 @@ var openapi = fromHono(app, {
   docs_url: "/"
 });
 openapi.post("/api/donations/generate-pdf", DonationPDFGeneration);
-openapi.post("/api/transaction/generate-uiidd", UIIDDGeneratior);
+openapi.get("/api/transaction/generate-uiidd", UIIDDGeneratior);
+openapi.post("/api/transaction/signature-transaction", SignatureIntegrity);
 var src_default = app;
 
 // node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
@@ -39032,7 +39109,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-voIEGF/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-DtYhNr/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -39065,7 +39142,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-voIEGF/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-DtYhNr/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

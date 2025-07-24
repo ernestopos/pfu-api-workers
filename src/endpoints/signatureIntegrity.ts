@@ -1,0 +1,64 @@
+import { Bool, OpenAPIRoute } from "chanfana";
+import { z } from "zod";
+import { type AppContext, PntegrityTemplate, Message } from "../types";
+import { generateUIIDD, hashSHA256, Security } from "../common/security";
+
+export class SignatureIntegrity extends OpenAPIRoute{
+    schema = {
+		tags: ["Generate signature integrity"],
+		summary: "Generate signature integrity for wompi transactions",
+		request: {
+			body: {
+				content: {
+					"application/json": {
+						schema: PntegrityTemplate,
+					},
+				},
+			},
+		},
+		responses: {
+			"200": {
+				description: "Generate signature integrity successfully",
+				content: {
+					"application/json": {
+						schema: z.object({
+							series: z.object({
+								success: Bool(),
+								result: z.object({
+									task: Message,
+								}),
+							}),
+						}),
+					},
+				},
+			},
+		},
+	};
+
+    async handle(c: AppContext) {
+            const uiid = await generateUIIDD();
+            const data = await this.getValidatedData<typeof this.schema>();
+            const donateData = data.body;
+            const signatureIntegrity = await generateSignatureIntegrity(donateData.currency, donateData.amount, uiid);
+            return {
+                success: true,
+                result: {
+                    id: uiid,
+                    signatureIntegrity: signatureIntegrity,
+                },
+                message: {
+                    message: "Signature integrity generated successfully.",
+                    description: "The signature integrity for the donation has been created successfully.",
+                },
+            };
+        };
+}
+
+async function generateSignatureIntegrity(currency: string, amount: string, uiid:string) {
+  const fechaActual = new Date().toISOString();
+  const rawValue=uiid.concat(amount).concat(currency).concat(fechaActual).concat(Security.SECRET_KEY.toString());
+  const hash = hashSHA256(rawValue);
+  return hash;
+}
+
+                

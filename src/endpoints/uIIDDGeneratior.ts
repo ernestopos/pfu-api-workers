@@ -1,6 +1,7 @@
 import { Bool, OpenAPIRoute } from "chanfana";
 import { z } from "zod";
 import { type AppContext, PaypalDonation, Message } from "../types";
+import { generateUIIDD } from "../common/security";
 
 export class UIIDDGeneratior extends OpenAPIRoute{
     schema = {
@@ -37,11 +38,4 @@ export class UIIDDGeneratior extends OpenAPIRoute{
                 },
             };
         };
-}
-
-export async function generateUIIDD() {
-  const seg1 = Math.random().toString(16).substring(2, 8);
-  const seg2 = crypto.randomUUID().split('-')[1] + crypto.randomUUID().split('-')[2];
-  const seg3 = Date.now().toString(36);
-  return `${seg1}-${seg2}-${seg3}`;  
 }
