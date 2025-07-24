@@ -19850,10 +19850,10 @@ var init_index_es = __esm({
   }
 });
 
-// .wrangler/tmp/bundle-6CzWPA/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-kiDSYG/middleware-loader.entry.ts
 init_modules_watch_stub();
 
-// .wrangler/tmp/bundle-6CzWPA/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-kiDSYG/middleware-insertion-facade.js
 init_modules_watch_stub();
 
 // src/index.ts
@@ -39058,8 +39058,7 @@ var SignatureIntegrity = class extends OpenAPIRoute {
   }
 };
 async function generateSignatureIntegrity(currency, amount, uiid) {
-  const fechaActual = (/* @__PURE__ */ new Date()).toISOString();
-  const rawValue = uiid.concat(amount).concat(currency).concat(fechaActual).concat(Security.SECRET_KEY.toString());
+  const rawValue = uiid.concat(amount).concat(currency).concat(Security.SECRET_KEY.toString());
   const hash = hashSHA256(rawValue);
   return hash;
 }
@@ -39213,7 +39212,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-6CzWPA/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-kiDSYG/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -39246,7 +39245,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-6CzWPA/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-kiDSYG/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
