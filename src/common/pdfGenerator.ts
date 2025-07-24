@@ -58,7 +58,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
   return btoa(binary);
 }
 
-export async function convertirJsonAWompiBase64(requestBody: any){
-    const jsonString = JSON.stringify(requestBody, null, 2);
-    return Buffer.from(jsonString, 'utf-8').toString('base64');
+export function convertirJsonAWompiBase64(data: any): string {
+   const jsonString = JSON.stringify(data, null, 2);
+   return btoa(unescape(encodeURIComponent(jsonString)));
 }

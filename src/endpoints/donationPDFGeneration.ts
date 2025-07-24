@@ -43,7 +43,7 @@ export class DonationPDFGeneration extends OpenAPIRoute{
             
             await sendDonationEmail(donateData.resource.payer.email_address,
                                     donationPDF,
-                                    donateData.resource.payer.name.given_name,'application/pdf');
+                                    donateData.resource.payer.name.given_name);
             return {
                 success: true,
                 message: {
