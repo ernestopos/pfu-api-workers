@@ -12,6 +12,32 @@ export const Task = z.object({
 	due_date: DateTime(),
 });
 
+export const WebhookWompiSchema = z.object({
+  event: z.literal("transaction.updated"),
+  data: z.object({
+    transaction: z.object({
+      id: z.string(),
+      amount_in_cents: z.number(),
+      reference: z.string(),
+      customer_email: z.string().email(),
+      currency: z.string(),
+      payment_method_type: z.string(),
+      redirect_url: z.string().url(),
+      status: z.string(),
+      shipping_address: z.any().nullable(), // Puede venir como null o no usado
+      payment_link_id: z.any().nullable(),
+      payment_source_id: z.any().nullable(),
+    }),
+  }),
+  environment: z.string(),
+  signature: z.object({
+    properties: z.array(z.string()),
+    checksum: z.string(),
+  }),
+  timestamp: z.number(),
+  sent_at: z.string(), // Podrías usar z.coerce.date() si quieres validarlo como fecha
+});
+
 export const PntegrityTemplate = z.object({
   currency: z.string(),
   amount: z.string().regex(/^[0-9]+(\.[0-9]{2})?$/)

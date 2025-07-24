@@ -8,6 +8,7 @@ import { DonationPDFGeneration } from "./endpoints/donationPDFGeneration";
 import { UIIDDGeneratior } from "./endpoints/uIIDDGeneratior";
 import { SignatureIntegrity } from "./endpoints/signatureIntegrity";
 import { cors } from "hono/cors";
+import { WebHookWompiDonationPDFGeneration } from "./endpoints/webHookWompiDonationPDFGeneration";
 
 // Start a Hono app
 const app = new Hono<{ Bindings: Env }>();
@@ -18,20 +19,15 @@ const openapi = fromHono(app, {
 });
 
 app.use("*", cors({
-  origin: "*", // o "https://tusitio.com" para mayor seguridad
+  origin: "*",
   allowMethods: ["GET", "POST", "OPTIONS"],
   allowHeaders: ["Content-Type"],
 }));
-
-// Register OpenAPI endpoints
-//openapi.get("/api/tasks", TaskList);
-//openapi.post("/api/tasks", TaskCreate);
-//openapi.get("/api/tasks/:taskSlug", TaskFetch);
-//openapi.delete("/api/tasks/:taskSlug", TaskDelete);
 
 // PFU - Foundation API Integration
 openapi.post("/api/donations/generate-pdf", DonationPDFGeneration);
 openapi.get("/api/transaction/generate-uiidd", UIIDDGeneratior);
 openapi.post("/api/transaction/signature-transaction", SignatureIntegrity);
+openapi.post("/api/webhook/wompi/generate-pdf", WebHookWompiDonationPDFGeneration);
 
 export default app;
