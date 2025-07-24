@@ -19850,10 +19850,10 @@ var init_index_es = __esm({
   }
 });
 
-// .wrangler/tmp/bundle-kiDSYG/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-Inrfz6/middleware-loader.entry.ts
 init_modules_watch_stub();
 
-// .wrangler/tmp/bundle-kiDSYG/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-Inrfz6/middleware-insertion-facade.js
 init_modules_watch_stub();
 
 // src/index.ts
@@ -30234,6 +30234,33 @@ var Task = external_exports.object({
   completed: external_exports.boolean().default(false),
   due_date: DateTime()
 });
+var WebhookWompiSchema = external_exports.object({
+  event: external_exports.literal("transaction.updated"),
+  data: external_exports.object({
+    transaction: external_exports.object({
+      id: external_exports.string(),
+      amount_in_cents: external_exports.number(),
+      reference: external_exports.string(),
+      customer_email: external_exports.string().email(),
+      currency: external_exports.string(),
+      payment_method_type: external_exports.string(),
+      redirect_url: external_exports.string().url(),
+      status: external_exports.string(),
+      shipping_address: external_exports.any().nullable(),
+      // Puede venir como null o no usado
+      payment_link_id: external_exports.any().nullable(),
+      payment_source_id: external_exports.any().nullable()
+    })
+  }),
+  environment: external_exports.string(),
+  signature: external_exports.object({
+    properties: external_exports.array(external_exports.string()),
+    checksum: external_exports.string()
+  }),
+  timestamp: external_exports.number(),
+  sent_at: external_exports.string()
+  // Podrías usar z.coerce.date() si quieres validarlo como fecha
+});
 var PntegrityTemplate = external_exports.object({
   currency: external_exports.string(),
   amount: external_exports.string().regex(/^[0-9]+(\.[0-9]{2})?$/)
@@ -39153,6 +39180,118 @@ var cors = /* @__PURE__ */ __name((options) => {
   }, "cors2");
 }, "cors");
 
+// src/endpoints/webHookWompiDonationPDFGeneration.ts
+init_modules_watch_stub();
+var WebHookWompiDonationPDFGeneration = class extends OpenAPIRoute {
+  static {
+    __name(this, "WebHookWompiDonationPDFGeneration");
+  }
+  schema = {
+    tags: ["Wompi Webhooks"],
+    summary: "Receive transaction status updates from Wompi",
+    description: "This endpoint handles webhook notifications from Wompi for transaction updates. It generates a PDF certificate for donations and sends it via email to the donor.",
+    request: {
+      body: {
+        content: {
+          "application/json": {
+            schema: WebhookWompiSchema
+          }
+        }
+      }
+    },
+    responses: {
+      "200": {
+        description: "PDF generated successfully and email sent for Wompi donation platform.",
+        content: {
+          "application/json": {
+            schema: external_exports.object({
+              series: external_exports.object({
+                success: Bool(),
+                result: external_exports.object({
+                  task: Message
+                })
+              })
+            })
+          }
+        }
+      }
+    }
+  };
+  async handle(c4) {
+    const data = await this.getValidatedData();
+    const donateData = data.body;
+    if (donateData.event !== "transaction.updated" && donateData.event !== "nequi_token.updated" && donateData.event !== "bancolombia_transfer_token.updated") {
+      return new Response("Event not supported", { status: 200 });
+    }
+    if (donateData.data.transaction.status !== "APPROVED") {
+      return new Response("Status not supported", { status: 200 });
+    }
+    const donationPDF = await generateDonationPDF2("PRUEBA", Number(donateData.data.transaction.amount_in_cents), "COL", /* @__PURE__ */ new Date(), "INV-12345");
+    await sendDonationEmail(
+      donateData.data.transaction.customer_email,
+      donationPDF,
+      "PRUEBA"
+    );
+    return {
+      success: true,
+      message: {
+        message: "PDF generated successfully and email sent.",
+        description: "The PDF for the donation has been created and the email has been sent."
+      }
+    };
+  }
+};
+async function generateDonationPDF2(donorName, amount, currency, date, invoiceId) {
+  const doc = new E({ orientation: "portrait", unit: "pt", format: "a4" });
+  doc.setFontSize(18);
+  const logoUrl = "https://cdn1.site-media.eu/images/0/17352501/PFU-Logo_blanco-GxBlRzv5qp7Lsp-cXOtV1g.png";
+  const logoBase64 = await loadImageAsDataUrl2(logoUrl);
+  doc.addImage(logoBase64, "PNG", 40, 40, 120, 100);
+  doc.setFontSize(22);
+  doc.setFont("helvetica", "bold");
+  doc.text("CERTIFICADO DE DONACI\xD3N", doc.internal.pageSize.getWidth() / 2, 180, { align: "center" });
+  doc.setDrawColor(0);
+  doc.line(40, 200, doc.internal.pageSize.getWidth() - 40, 200);
+  doc.setFontSize(14);
+  doc.setFont("times", "normal");
+  const content = `La Fundaci\xF3n PFU - Peerkals Fundations, certifica que el(la) se\xF1or(a) ${donorName} ha realizado una donaci\xF3n por un valor de $${amount.toLocaleString()} COP el d\xEDa ${date}.
+Este aporte contribuye a la formaci\xF3n tecnol\xF3gica de j\xF3venes en situaci\xF3n de vulnerabilidad, promoviendo caminos de vida con prop\xF3sito.`;
+  doc.text(content, 60, 240, { maxWidth: doc.internal.pageSize.getWidth() - 120, align: "justify" });
+  doc.setFont("helvetica", "italic");
+  doc.text("Atentamente,", 60, 350);
+  const firmaUrl = "https://cdn1.site-media.eu/images/0/17796467/FirmaRepresentanteLegal-cF5cCYrKop2w8u2dHJkBEg.jpg";
+  const firmaBase64 = await loadImageAsDataUrl2(firmaUrl);
+  doc.addImage(firmaBase64, "PNG", 60, 350, 200, 160);
+  doc.text("_________________________________", 60, 560);
+  doc.text("Ing. Ernesto Enrique Posada Pulido,", 60, 580);
+  doc.text("Representante Legal,", 60, 600);
+  doc.text("Fundaci\xF3n PFU - Peerkals Fundation", 60, 620);
+  doc.text("NIT: 901955282-7", 60, 640);
+  doc.setFontSize(10);
+  doc.text("Cra 47 #84-200 | pfu.info@peerkals.com | www.peerkals.com", doc.internal.pageSize.getWidth() / 2, 800, { align: "center" });
+  const base64 = doc.output("datauristring").split(",")[1];
+  return base64;
+}
+__name(generateDonationPDF2, "generateDonationPDF");
+async function loadImageAsDataUrl2(url) {
+  const response = await fetch(url);
+  const buffer = await response.arrayBuffer();
+  const contentType = response.headers.get("content-type") || "image/png";
+  const base64String = arrayBufferToBase642(buffer);
+  return `data:${contentType};base64,${base64String}`;
+}
+__name(loadImageAsDataUrl2, "loadImageAsDataUrl");
+function arrayBufferToBase642(buffer) {
+  let binary2 = "";
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i3 = 0; i3 < len; i3++) {
+    binary2 += String.fromCharCode(bytes[i3]);
+  }
+  return btoa(binary2);
+}
+__name(arrayBufferToBase642, "arrayBufferToBase64");
+
 // src/index.ts
 var app = new Hono2();
 var openapi = fromHono(app, {
@@ -39160,13 +39299,13 @@ var openapi = fromHono(app, {
 });
 app.use("*", cors({
   origin: "*",
-  // o "https://tusitio.com" para mayor seguridad
   allowMethods: ["GET", "POST", "OPTIONS"],
   allowHeaders: ["Content-Type"]
 }));
 openapi.post("/api/donations/generate-pdf", DonationPDFGeneration);
 openapi.get("/api/transaction/generate-uiidd", UIIDDGeneratior);
 openapi.post("/api/transaction/signature-transaction", SignatureIntegrity);
+openapi.post("/api/webhook/wompi/generate-pdf", WebHookWompiDonationPDFGeneration);
 var src_default = app;
 
 // node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
@@ -39212,7 +39351,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-kiDSYG/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-Inrfz6/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -39245,7 +39384,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-kiDSYG/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-Inrfz6/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
