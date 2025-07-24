@@ -6,6 +6,7 @@ import { TaskFetch } from "./endpoints/taskFetch";
 import { TaskList } from "./endpoints/taskList";
 import { DonationPDFGeneration } from "./endpoints/donationPDFGeneration";
 import { UIIDDGeneratior } from "./endpoints/uIIDDGeneratior";
+import { SignatureIntegrity } from "./endpoints/signatureIntegrity";
 
 // Start a Hono app
 const app = new Hono<{ Bindings: Env }>();
@@ -23,6 +24,7 @@ const openapi = fromHono(app, {
 
 // PFU - Foundation API Integration
 openapi.post("/api/donations/generate-pdf", DonationPDFGeneration);
-openapi.post("/api/transaction/generate-uiidd", UIIDDGeneratior);
+openapi.get("/api/transaction/generate-uiidd", UIIDDGeneratior);
+openapi.post("/api/transaction/signature-transaction", SignatureIntegrity);
 
 export default app;

@@ -12,6 +12,11 @@ export const Task = z.object({
 	due_date: DateTime(),
 });
 
+export const PntegrityTemplate = z.object({
+  currency: z.string(),
+  amount: z.string().regex(/^[0-9]+(\.[0-9]{2})?$/)
+});
+
 export const PaypalDonation = z.object({
   id: z.string(),
   create_time: z.string().datetime(),
