@@ -1,6 +1,6 @@
 
 import { Security } from "./security";
-export async function sendDonationEmail(toEmail, pdfBase64, donorName) {
+export async function sendDonationEmail(toEmail, pdfBase64, donorName, typemail) {
   
   try {  
   const apiKey = Security.RESEND_API_KEY;
@@ -15,16 +15,36 @@ export async function sendDonationEmail(toEmail, pdfBase64, donorName) {
       to: [toEmail],
       subject: 'Certificado de Donación - PFU',
       html: `
-        <p>Hola ${donorName},</p>
-        <p>Gracias por tu generosa donación a la Fundación PFU.</p>
-        <p>Adjunto encontrarás tu certificado de donación en formato PDF.</p>
-        <p>¡Gracias por apoyar esta causa!</p>
+        <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 0; font-family: Arial, sans-serif;">
+        <tr>
+            <td align="center">
+            <table width="600" cellpadding="0" cellspacing="0" style="background-color: #005baa; padding: 30px; border-radius: 8px;">
+                <tr>
+                <td align="left" style="color: #ffffff;">
+                    <p>Hola ${donorName},</p>
+                    <h2 style="margin-top: 0; color: #ffffff;">Fundación - PFU Peerkals Fundation</h2>
+                    <p style="margin-bottom: 20px; color: #ffffff;">
+                    Gracias por tu valiosa contribución. Tu generosidad impulsa nuestro propósito de transformar vidas a través de la tecnología y la educación. 
+                    <br /><br />
+                    Adjuntamos a este correo el certificado oficial de tu donación.
+                    </p>
+                </td>
+                </tr>
+            </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding-top: 20px;">
+            <img src="https://cdn1.site-media.eu/images/0/17352501/PFU-Logo_blanco-GxBlRzv5qp7Lsp-cXOtV1g.png" alt="Logo Fundación PFU" width="120" style="display: block;" />
+            </td>
+        </tr>
+    </table>
       `,
       attachments: [
         {
           filename: 'certificado_donacion.pdf',
           content: pdfBase64,
-          contentType: 'application/pdf'
+          contentType: typemail
         }
       ]
     })
