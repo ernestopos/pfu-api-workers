@@ -40,17 +40,28 @@ export class SignatureIntegrity extends OpenAPIRoute{
             const data = await this.getValidatedData<typeof this.schema>();
             const donateData = data.body;
             const signatureIntegrity = await generateSignatureIntegrity(donateData.currency, donateData.amount, uiid);
-            return {
-                success: true,
-                result: {
-                    id: uiid,
-                    signatureIntegrity: signatureIntegrity,
-                },
-                message: {
-                    message: "Signature integrity generated successfully.",
-                    description: "The signature integrity for the donation has been created successfully.",
-                },
-            };
+            
+            const json = JSON.stringify({
+            success: true,
+              result: {
+                id: uiid,
+                signatureIntegrity: signatureIntegrity,
+              },
+              message: {
+                message: "Signature integrity generated successfully.",
+                description: "The signature integrity for the donation has been created successfully.",
+              },
+            });
+
+          return new Response(json, {
+            status: 200,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+              "Access-Control-Allow-Headers": "Content-Type",
+            },
+          });            
         };
 }
 
@@ -60,5 +71,3 @@ async function generateSignatureIntegrity(currency: string, amount: string, uiid
   const hash = hashSHA256(rawValue);
   return hash;
 }
-
-                

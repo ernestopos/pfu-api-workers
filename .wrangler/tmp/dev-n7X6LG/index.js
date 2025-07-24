@@ -19850,10 +19850,10 @@ var init_index_es = __esm({
   }
 });
 
-// .wrangler/tmp/bundle-DtYhNr/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-6CzWPA/middleware-loader.entry.ts
 init_modules_watch_stub();
 
-// .wrangler/tmp/bundle-DtYhNr/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-6CzWPA/middleware-insertion-facade.js
 init_modules_watch_stub();
 
 // src/index.ts
@@ -39035,7 +39035,7 @@ var SignatureIntegrity = class extends OpenAPIRoute {
     const data = await this.getValidatedData();
     const donateData = data.body;
     const signatureIntegrity = await generateSignatureIntegrity(donateData.currency, donateData.amount, uiid);
-    return {
+    const json2 = JSON.stringify({
       success: true,
       result: {
         id: uiid,
@@ -39045,7 +39045,16 @@ var SignatureIntegrity = class extends OpenAPIRoute {
         message: "Signature integrity generated successfully.",
         description: "The signature integrity for the donation has been created successfully."
       }
-    };
+    });
+    return new Response(json2, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+      }
+    });
   }
 };
 async function generateSignatureIntegrity(currency, amount, uiid) {
@@ -39056,11 +39065,106 @@ async function generateSignatureIntegrity(currency, amount, uiid) {
 }
 __name(generateSignatureIntegrity, "generateSignatureIntegrity");
 
+// node_modules/hono/dist/middleware/cors/index.js
+init_modules_watch_stub();
+var cors = /* @__PURE__ */ __name((options) => {
+  const defaults = {
+    origin: "*",
+    allowMethods: ["GET", "HEAD", "PUT", "POST", "DELETE", "PATCH"],
+    allowHeaders: [],
+    exposeHeaders: []
+  };
+  const opts = {
+    ...defaults,
+    ...options
+  };
+  const findAllowOrigin = ((optsOrigin) => {
+    if (typeof optsOrigin === "string") {
+      if (optsOrigin === "*") {
+        return () => optsOrigin;
+      } else {
+        return (origin) => optsOrigin === origin ? origin : null;
+      }
+    } else if (typeof optsOrigin === "function") {
+      return optsOrigin;
+    } else {
+      return (origin) => optsOrigin.includes(origin) ? origin : null;
+    }
+  })(opts.origin);
+  const findAllowMethods = ((optsAllowMethods) => {
+    if (typeof optsAllowMethods === "function") {
+      return optsAllowMethods;
+    } else if (Array.isArray(optsAllowMethods)) {
+      return () => optsAllowMethods;
+    } else {
+      return () => [];
+    }
+  })(opts.allowMethods);
+  return /* @__PURE__ */ __name(async function cors2(c4, next) {
+    function set2(key, value) {
+      c4.res.headers.set(key, value);
+    }
+    __name(set2, "set");
+    const allowOrigin = findAllowOrigin(c4.req.header("origin") || "", c4);
+    if (allowOrigin) {
+      set2("Access-Control-Allow-Origin", allowOrigin);
+    }
+    if (opts.origin !== "*") {
+      const existingVary = c4.req.header("Vary");
+      if (existingVary) {
+        set2("Vary", existingVary);
+      } else {
+        set2("Vary", "Origin");
+      }
+    }
+    if (opts.credentials) {
+      set2("Access-Control-Allow-Credentials", "true");
+    }
+    if (opts.exposeHeaders?.length) {
+      set2("Access-Control-Expose-Headers", opts.exposeHeaders.join(","));
+    }
+    if (c4.req.method === "OPTIONS") {
+      if (opts.maxAge != null) {
+        set2("Access-Control-Max-Age", opts.maxAge.toString());
+      }
+      const allowMethods = findAllowMethods(c4.req.header("origin") || "", c4);
+      if (allowMethods.length) {
+        set2("Access-Control-Allow-Methods", allowMethods.join(","));
+      }
+      let headers = opts.allowHeaders;
+      if (!headers?.length) {
+        const requestHeaders = c4.req.header("Access-Control-Request-Headers");
+        if (requestHeaders) {
+          headers = requestHeaders.split(/\s*,\s*/);
+        }
+      }
+      if (headers?.length) {
+        set2("Access-Control-Allow-Headers", headers.join(","));
+        c4.res.headers.append("Vary", "Access-Control-Request-Headers");
+      }
+      c4.res.headers.delete("Content-Length");
+      c4.res.headers.delete("Content-Type");
+      return new Response(null, {
+        headers: c4.res.headers,
+        status: 204,
+        statusText: "No Content"
+      });
+    }
+    await next();
+  }, "cors2");
+}, "cors");
+
 // src/index.ts
 var app = new Hono2();
 var openapi = fromHono(app, {
   docs_url: "/"
 });
+app.use("*", cors({
+  origin: "*",
+  // o "https://tusitio.com" para mayor seguridad
+  allowMethods: ["GET", "POST", "OPTIONS"],
+  allowHeaders: ["Content-Type"]
+}));
 openapi.post("/api/donations/generate-pdf", DonationPDFGeneration);
 openapi.get("/api/transaction/generate-uiidd", UIIDDGeneratior);
 openapi.post("/api/transaction/signature-transaction", SignatureIntegrity);
@@ -39109,7 +39213,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-DtYhNr/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-6CzWPA/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -39142,7 +39246,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-DtYhNr/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-6CzWPA/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
