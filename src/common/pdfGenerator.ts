@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import { formatDateToDDMMYYYY } from "./toolsapp";
 
 export async function generateDonationPDF(donorName: string, amount: number, currency: string, date: Date, invoiceId: string) {
   const doc = new jsPDF({orientation: 'portrait', unit: 'pt', format: 'a4' });
@@ -19,7 +20,7 @@ export async function generateDonationPDF(donorName: string, amount: number, cur
 
   doc.setFontSize(14);
   doc.setFont('times', 'normal');
-  const content = `La Fundación PFU - Peerkals Fundations, certifica que el(la) señor(a) ${donorName} ha realizado una donación por un valor de $${amount.toLocaleString()} COP el día ${date}.
+  const content = `La Fundación PFU - Peerkals Fundations, certifica que el(la) señor(a) ${donorName} ha realizado una donación por un valor de $${amount.toLocaleString()} COP el día ${formatDateToDDMMYYYY(date)}.
 Este aporte contribuye a la formación tecnológica de jóvenes en situación de vulnerabilidad, promoviendo caminos de vida con propósito.`;
   doc.text(content, 60, 240, { maxWidth: doc.internal.pageSize.getWidth() - 120, align: 'justify' });
   doc.setFont('helvetica', 'italic');
@@ -27,7 +28,7 @@ Este aporte contribuye a la formación tecnológica de jóvenes en situación de
 
   const firmaUrl = 'https://cdn1.site-media.eu/images/0/17796467/FirmaRepresentanteLegal-cF5cCYrKop2w8u2dHJkBEg.jpg';
   const firmaBase64 = await loadImageAsDataUrl(firmaUrl);
-  doc.addImage(firmaBase64, 'PNG', 60, 350, 200, 160);
+  doc.addImage(firmaBase64, 'PNG', 60, 450, 100, 80);
 
   doc.text('_________________________________', 60, 560);
   doc.text('Ing. Ernesto Enrique Posada Pulido,', 60, 580);
