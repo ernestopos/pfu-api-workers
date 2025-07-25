@@ -12,6 +12,17 @@ export const Task = z.object({
 	due_date: DateTime(),
 });
 
+export const DonationSchema = z.object({
+  reference: z.string().max(50),
+  customer_name: z.string().max(100),
+  customer_email: z.string().email().max(100),
+  amount_in_cents: z.number().int().nonnegative(),
+  currency: z.string().max(10),
+  date: z.coerce.date(),
+  status: z.string().max(20),
+  clientid: z.number().int().nonnegative()
+});
+
 export const WebhookWompiSchema = z.object({
   event: z.literal("transaction.updated"),
   data: z.object({

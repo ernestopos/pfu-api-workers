@@ -35,7 +35,7 @@ export class SignatureIntegrity extends OpenAPIRoute{
 		},
 	};
 
-    async handle(c: AppContext) {
+    async handle(c) {
             const uiid = await generateUIIDD();
             const data = await this.getValidatedData<typeof this.schema>();
             const donateData = data.body;
