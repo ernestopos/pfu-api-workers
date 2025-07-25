@@ -9,7 +9,14 @@
 	"compatibility_date": "2025-07-19",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"d1_databases": [
+	 {
+	   "binding": "DB",
+	   "database_name": "prod-pfu-api",
+	   "database_id": "1823ba53-93c1-41eb-876c-48f167ce00b8"
+	 }
+	]	
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

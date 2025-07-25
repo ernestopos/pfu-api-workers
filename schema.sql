@@ -1,0 +1,3 @@
+DROP TABLE if EXISTS donations;
+CREATE TABLE IF NOT EXISTS donations(customer_email VARCHAR(100) PRIMARY KEY,reference VARCHAR(50),customer_name VARCHAR(100), amount_in_cents INT, currency VARCHAR(10), date TIMESTAMP,status VARCHAR(20), clientid INT);
+INSERT INTO donations(customer_email, reference, customer_name, amount_in_cents, currency, date, status, clientid) VALUES ('juan.perez@gmail.com', 'MZQ800DE2SMX', 'Juan Pérez', 9500000, 'COP', '2025-07-24T14:22:00Z', 'APPROVED', 654114);
