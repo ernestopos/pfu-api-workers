@@ -22,9 +22,9 @@ export async function sendDonationEmail(toEmail, pdfBase64, donorName) {
                 <tr>
                 <td align="left" style="color: #ffffff;">
                     <p>Hola ${donorName},</p>
-                    <h2 style="margin-top: 0; color: #ffffff;">Fundación - PFU Peerkals Fundation</h2>
+                    <h2 style="margin-top: 0; color: #ffffff;">La Fundación - PFU Peerkals Fundation</h2>
                     <p style="margin-bottom: 20px; color: #ffffff;">
-                    Gracias por tu valiosa contribución. Tu generosidad impulsa nuestro propósito de transformar vidas a través de la tecnología y la educación. 
+                    agradece tu valiosa contribución. Tu generosidad impulsa nuestro propósito de transformar vidas a través de la tecnología y la educación. 
                     <br /><br />
                     Adjuntamos a este correo el certificado oficial de tu donación.
                     </p>
