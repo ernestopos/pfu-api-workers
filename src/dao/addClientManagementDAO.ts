@@ -48,7 +48,7 @@ export class AddClientManagementDAO extends OpenAPIRoute {
         .all();  
 
       if (results.length > 0) {
-        return new Response("El cliente ya se encuentra registrado", { status: 400 });
+        return new Response("El cliente ya se encuentra registrado", { status: 200 });
       }
 
       await c.env.DB.prepare(
