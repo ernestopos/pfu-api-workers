@@ -66,7 +66,7 @@ export class SignatureIntegrity extends OpenAPIRoute{
 }
 
 async function generateSignatureIntegrity(currency: string, amount: string, uiid:string) {
-  const rawValue=uiid.concat(amount).concat(currency).concat(Security.SECRET_KEY_TEST.toString());  
+  const rawValue=uiid.concat(amount).concat(currency).concat(Security.SECRET_KEY.toString());  
   const hash = hashSHA256(rawValue);
   return hash;
 }
