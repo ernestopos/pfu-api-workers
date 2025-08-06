@@ -56,7 +56,7 @@ export class WebHookWompiDonationPDFGeneration extends OpenAPIRoute{
       		).bind(donateData.data.transaction.customer_email).all();
 
 			if (results.length > 0) {
-				clientName = results[0].customer_name;
+				clientName = results[0].NOMBRE;
 			}
 
             const pesosDonados = convertirCentavosAPesos(donateData.data.transaction.amount_in_cents);
