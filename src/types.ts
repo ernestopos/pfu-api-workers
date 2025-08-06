@@ -20,7 +20,16 @@ export const DonationSchema = z.object({
   currency: z.string().max(10),
   date: z.coerce.date(),
   status: z.string().max(20),
-  clientid: z.number().int().nonnegative()
+  clientid: z.number().int().nonnegative(),
+  clientidtype:z.string().max(20)
+});
+
+const ClienteSchema = z.object({
+  ID: z.number().int().nonnegative(), // autoincremental
+  NOMBRE: z.string().max(250),
+  NUMERODOC: z.string().max(100),
+  TIPODOC: z.string().max(100),
+  CORREO: z.string().max(250)
 });
 
 export const WebhookWompiSchema = z.object({

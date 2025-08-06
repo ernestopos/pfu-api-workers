@@ -42,22 +42,28 @@ export class AddClientManagementDAO extends OpenAPIRoute {
       const data = await this.getValidatedData<typeof this.schema>();
       const client = data.body;
       const {results} = await c.env.DB.prepare(
-        "SELECT * FROM donations WHERE customer_email = ?"
+        "SELECT * FROM CLIENTE WHERE NUMERODOC = ?"
       )
-        .bind(client.customer_email)
+        .bind(client.clientid)
         .all();  
 
-      if (results.length > 0) {
-        return new Response("El cliente ya se encuentra registrado", { status: 200 });
+      if (results.length === 0) {
+        await c.env.DB.prepare(
+        "INSERT INTO CLIENTE(NOMBRE,NUMERODOC,TIPODOC,CORREO) VALUES (?, ?, ?, ?)"
+          )
+            .bind(
+              client.customer_name,
+              client.clientid,
+              client.clientidtype,
+              client.customer_email                            
+            )
+            .all();
       }
 
       await c.env.DB.prepare(
-        "INSERT INTO donations(customer_email, reference, customer_name, amount_in_cents, currency, date, status, clientid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+        "INSERT INTO DONACION(AMOUNT_IN_CENTS,CURRENCY,DATE,STATUS,CLIENTID) VALUES (?, ?, ?, ?, (SELECT ID FROM CLIENTE WHERE NUMERODOC = ?))"
       )
         .bind(
-          client.customer_email,
-          client.reference,
-          client.customer_name,
           client.amount_in_cents,
           client.currency,
           new Date().toISOString(),
@@ -69,9 +75,9 @@ export class AddClientManagementDAO extends OpenAPIRoute {
       return {
         success: true,
         message: {
-          message: "Cliente creaado correctamente.",
+          message: "Cliente guardado correctamente.",
           description:
-            "Se creo el cliente de forma correcta y se guardo en la base de datos.",
+            "Se guardaros los datos del cliente de forma correcta.",
         },
       };
     } catch (error) {
