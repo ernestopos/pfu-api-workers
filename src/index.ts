@@ -10,6 +10,7 @@ import { SignatureIntegrity } from "./endpoints/signatureIntegrity";
 import { cors } from "hono/cors";
 import { WebHookWompiDonationPDFGeneration } from "./endpoints/webHookWompiDonationPDFGeneration";
 import { AddClientManagementDAO } from "./dao/addClientManagementDAO";
+import { ProductProxy } from "./endpoints/ProductProxy";
 
 export type PFUBindings = {
   DB: D1Database;  
@@ -36,6 +37,6 @@ openapi.post("/api/transaction/signature-transaction", SignatureIntegrity);
 openapi.post("/api/webhook/wompi/generate-pdf", WebHookWompiDonationPDFGeneration);
 openapi.post("/api/webhook/client/create", AddClientManagementDAO);
 
-
-
+// API FOR SHOPPING CAR INTEGRATION
+openapi.get("/api/shoppingcar/viewproducts", ProductProxy);
 export default app;

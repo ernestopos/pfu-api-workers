@@ -24,14 +24,6 @@ export const DonationSchema = z.object({
   clientidtype:z.string().max(20)
 });
 
-const ClienteSchema = z.object({
-  ID: z.number().int().nonnegative(), // autoincremental
-  NOMBRE: z.string().max(250),
-  NUMERODOC: z.string().max(100),
-  TIPODOC: z.string().max(100),
-  CORREO: z.string().max(250)
-});
-
 export const WebhookWompiSchema = z.object({
   event: z.literal("transaction.updated"),
   data: z.object({
@@ -44,7 +36,7 @@ export const WebhookWompiSchema = z.object({
       payment_method_type: z.string(),
       redirect_url: z.string().url(),
       status: z.string(),
-      shipping_address: z.any().nullable(), // Puede venir como null o no usado
+      shipping_address: z.any().nullable(),
       payment_link_id: z.any().nullable(),
       payment_source_id: z.any().nullable(),
     }),
@@ -55,7 +47,7 @@ export const WebhookWompiSchema = z.object({
     checksum: z.string(),
   }),
   timestamp: z.number(),
-  sent_at: z.string(), // Podrías usar z.coerce.date() si quieres validarlo como fecha
+  sent_at: z.string(),
 });
 
 export const PntegrityTemplate = z.object({
@@ -129,4 +121,68 @@ export const PaypalDonation = z.object({
 export const Message = z.object({
 	message: Str(),
 	description: Str()
+});
+
+/** Zod para el manejo del carrito de compra */
+const ClienteSchema = z.object({
+  ID: z.number().int().nonnegative(),
+  NOMBRE: z.string().max(250),
+  NUMERODOC: z.string().max(100),
+  TIPODOC: z.string().max(100),
+  CORREO: z.string().max(250)
+});
+
+export const parametroSchema = z.object({
+  ID: z.number().optional(),
+  NOMBRE: z.string().max(100),
+  DESCRIPCION: z.string().max(100),
+  VALOR: z.string().max(100),
+  AGRUPADOR: z.string().max(100),
+  ESTADO: z.number()
+});
+
+export const articuloSchema = z.object({
+  ID: z.number().optional(),
+  NOMBRE: z.string().max(100),
+  CODIGO: z.string().max(100),
+  DESCRIPCION: z.string().max(100),
+  FIGURE_CLASS: z.string().max(250),
+  IMG_SRC: z.string().max(250),
+  IMG_ALT: z.string().max(250),
+  IMG_CLASS: z.string().max(250),
+  IMG_ON_CLICK: z.string().max(250),
+  DATA_CODIGO: z.string().max(250),
+  DATA_NOMBRE: z.string().max(250),
+  DATA_DESCRIPCION: z.string().max(250),
+  FIGCAPTION: z.string().max(250),
+  ESTADO: z.number()
+});
+
+export const productoSchema = z.object({
+  ID: z.number().optional(),
+  ID_ARTICULO: z.number(),
+  ID_PARAMETRO: z.number(),
+  DATA_PRECIO: z.number(),
+  ESTADO: z.number()
+});
+
+export const facturaSchema = z.object({
+  ID: z.number().optional(),
+  CODIGO: z.string().max(200),
+  ID_CLIENTE: z.number(),
+  VALOR_FACT: z.number(),
+  MONEDA: z.string().max(100),
+  FECHA_VENTA: z.string(), // Puedes usar z.coerce.date() si usas Date
+  ESTADO: z.string().max(10),
+  PAGADO: z.number(),
+  ARTICULO_ENVIADO: z.string().max(100)
+});
+
+export const detallFacturaSchema = z.object({
+  ID: z.number().optional(),
+  ID_FACTURA: z.number(),
+  ID_PRODUCTO: z.number(),
+  CANTIDAD: z.number(),
+  VALOR_UNITARIO: z.number(),
+  VALOR_TOTAL: z.number()
 });
