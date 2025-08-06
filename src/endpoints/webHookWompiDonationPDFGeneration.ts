@@ -52,7 +52,7 @@ export class WebHookWompiDonationPDFGeneration extends OpenAPIRoute{
                 return new Response("Status not supported", { status: 200 });              
             }		
 			
-			const {results} = await c.env.DB.prepare("SELECT * FROM donations WHERE customer_email = ?"
+			const {results} = await c.env.DB.prepare("SELECT * FROM CLIENTE WHERE CORREO = ?"
       		).bind(donateData.data.transaction.customer_email).all();
 
 			if (results.length > 0) {
