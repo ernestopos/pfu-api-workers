@@ -49,7 +49,7 @@ export class WebHookWompiDonationPDFGeneration extends OpenAPIRoute{
             }
 
             if(donateData.data.transaction.status !== "APPROVED") {
-                return new Response("Status not supported", { status: 200 });              
+                return new Response("Status not supported, right now", { status: 200 });              
             }		
 			
 			const {results} = await c.env.DB.prepare("SELECT * FROM CLIENTE WHERE CORREO = ?"
