@@ -1,9 +1,9 @@
 import jsPDF from "jspdf";
 import { formatDateToDDMMYYYY } from "./toolsapp";
 
-export async function generateDonationPDF(donorName: string, amount: number, currency: string, date: Date, invoiceId: string) {
+export async function generateDonationPDF(donorName:String, amount:number) {
+  const date = new Date();
   const doc = new jsPDF({orientation: 'portrait', unit: 'pt', format: 'a4' });
-
   // Título
   doc.setFontSize(18);
   const logoUrl = 'https://cdn1.site-media.eu/images/0/17352501/PFU-Logo_blanco-GxBlRzv5qp7Lsp-cXOtV1g.png';

@@ -19850,10 +19850,10 @@ var init_index_es = __esm({
   }
 });
 
-// .wrangler/tmp/bundle-WOXdUk/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-IUslGQ/middleware-loader.entry.ts
 init_modules_watch_stub();
 
-// .wrangler/tmp/bundle-WOXdUk/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-IUslGQ/middleware-insertion-facade.js
 init_modules_watch_stub();
 
 // src/index.ts
@@ -38982,7 +38982,8 @@ function formatDateToDDMMYYYY(date) {
 __name(formatDateToDDMMYYYY, "formatDateToDDMMYYYY");
 
 // src/common/pdfGenerator.ts
-async function generateDonationPDF(donorName, amount, currency, date, invoiceId) {
+async function generateDonationPDF(donorName, amount) {
+  const date = /* @__PURE__ */ new Date();
   const doc = new E({ orientation: "portrait", unit: "pt", format: "a4" });
   doc.setFontSize(18);
   const logoUrl = "https://cdn1.site-media.eu/images/0/17352501/PFU-Logo_blanco-GxBlRzv5qp7Lsp-cXOtV1g.png";
@@ -39071,7 +39072,7 @@ var DonationPDFGeneration = class extends OpenAPIRoute {
   async handle(c4) {
     const data = await this.getValidatedData();
     const donateData = data.body;
-    const donationPDF = await generateDonationPDF(donateData.resource.payer.name.given_name, Number(donateData.resource.purchase_units[0].amount.value), "USD", /* @__PURE__ */ new Date(), "INV-12345");
+    const donationPDF = await generateDonationPDF(donateData.resource.payer.name.given_name, Number(donateData.resource.purchase_units[0].amount.value));
     await sendDonationEmail(
       donateData.resource.payer.email_address,
       donationPDF,
@@ -39287,72 +39288,6 @@ var cors = /* @__PURE__ */ __name((options) => {
   }, "cors2");
 }, "cors");
 
-// src/endpoints/webHookWompiDonationPDFGeneration.ts
-init_modules_watch_stub();
-var WebHookWompiDonationPDFGeneration = class extends OpenAPIRoute {
-  static {
-    __name(this, "WebHookWompiDonationPDFGeneration");
-  }
-  schema = {
-    tags: ["Wompi Webhooks"],
-    summary: "Receive transaction status updates from Wompi",
-    description: "This endpoint handles webhook notifications from Wompi for transaction updates. It generates a PDF certificate for donations and sends it via email to the donor.",
-    request: {
-      body: {
-        content: {
-          "application/json": {
-            schema: WebhookWompiSchema
-          }
-        }
-      }
-    },
-    responses: {
-      "200": {
-        description: "PDF generated successfully and email sent for Wompi donation platform.",
-        content: {
-          "application/json": {
-            schema: external_exports.object({
-              series: external_exports.object({
-                success: Bool(),
-                result: external_exports.object({
-                  task: Message
-                })
-              })
-            })
-          }
-        }
-      }
-    }
-  };
-  async handle(c4) {
-    const data = await this.getValidatedData();
-    const donateData = data.body;
-    let clientName = "";
-    if (donateData.event !== "transaction.updated" && donateData.event !== "nequi_token.updated" && donateData.event !== "bancolombia_transfer_token.updated") {
-      return new Response("Event not supported", { status: 200 });
-    }
-    if (donateData.data.transaction.status !== "APPROVED") {
-      return new Response("Status not supported, right now", { status: 200 });
-    }
-    const { results } = await c4.env.DB.prepare(
-      "SELECT * FROM CLIENTE WHERE CORREO = ?"
-    ).bind(donateData.data.transaction.customer_email).all();
-    if (results.length > 0) {
-      clientName = results[0].NOMBRE;
-    }
-    const pesosDonados = convertirCentavosAPesos(donateData.data.transaction.amount_in_cents);
-    const donationPDF = await generateDonationPDF(clientName, Number(pesosDonados), "COL", /* @__PURE__ */ new Date(), "INV-12345");
-    await sendDonationEmail(donateData.data.transaction.customer_email, donationPDF, clientName);
-    return {
-      success: true,
-      message: {
-        message: "PDF generated successfully and email sent.",
-        description: "The PDF for the donation has been created and the email has been sent."
-      }
-    };
-  }
-};
-
 // src/endpoints/ProductProxy.ts
 init_modules_watch_stub();
 var ProductProxy = class extends OpenAPIRoute {
@@ -39398,7 +39333,7 @@ var ProductProxy = class extends OpenAPIRoute {
 // src/endpoints/addClienProxy.ts
 init_modules_watch_stub();
 
-// src/dao/addClientDAO.ts
+// src/dao/ClientDAO.ts
 init_modules_watch_stub();
 async function saveCliente(env, client) {
   try {
@@ -39568,6 +39503,75 @@ var SaveDonationProxy = class extends OpenAPIRoute {
   }
 };
 
+// src/endpoints/webHookWompiIntegration.ts
+init_modules_watch_stub();
+var webHookWompiIntegration = class extends OpenAPIRoute {
+  static {
+    __name(this, "webHookWompiIntegration");
+  }
+  schema = {
+    tags: ["Wompi Webhooks"],
+    summary: "Receive transaction status updates from Wompi",
+    description: "This endpoint handles webhook notifications from Wompi for transaction updates.",
+    request: {
+      body: {
+        content: {
+          "application/json": {
+            schema: WebhookWompiSchema
+          }
+        }
+      }
+    },
+    responses: {
+      "200": {
+        description: "PDF generated successfully and email sent for Wompi donation platform.",
+        content: {
+          "application/json": {
+            schema: external_exports.object({
+              series: external_exports.object({
+                success: Bool(),
+                result: external_exports.object({
+                  task: Message
+                })
+              })
+            })
+          }
+        }
+      }
+    }
+  };
+  async handle(c4) {
+    const data = await this.getValidatedData();
+    const dataRequest = data.body;
+    let clientName = "";
+    let respondeData = null;
+    if (dataRequest.event !== "transaction.updated" && dataRequest.event !== "nequi_token.updated" && dataRequest.event !== "bancolombia_transfer_token.updated") {
+      return new Response("Event not supported", { status: 200 });
+    }
+    if (dataRequest.data.transaction.status !== "APPROVED") {
+      return new Response("Status not supported, right now", { status: 200 });
+    }
+    const source = dataRequest.data.transaction.shipping_address;
+    if (!source?.trim()) {
+      const { results } = await c4.env.DB.prepare("SELECT * FROM CLIENTE WHERE CORREO = ?").bind(dataRequest.data.transaction.customer_email).all();
+      if (results.length > 0) {
+        clientName = results[0].NOMBRE;
+      }
+      const donationPDF = await generateDonationPDF(clientName, Number(convertirCentavosAPesos(dataRequest.data.transaction.amount_in_cents)));
+      await sendDonationEmail(dataRequest.data.transaction.customer_email, donationPDF, clientName);
+      respondeData = {
+        success: true,
+        message: {
+          message: "PDF generated successfully and email sent.",
+          description: "The PDF for the donation has been created and the email has been sent."
+        }
+      };
+    } else {
+    }
+    return respondeData;
+  }
+};
+
 // src/index.ts
 var app = new Hono2();
 var openapi = fromHono(app, {
@@ -39581,7 +39585,7 @@ app.use("*", cors({
 openapi.post("/api/donations/generate-pdf", DonationPDFGeneration);
 openapi.get("/api/transaction/generate-uiidd", UIIDDGeneratior);
 openapi.post("/api/transaction/signature-transaction", SignatureIntegrity);
-openapi.post("/api/webhook/wompi/generate-pdf", WebHookWompiDonationPDFGeneration);
+openapi.post("/api/webhook/wompi/integration", webHookWompiIntegration);
 openapi.post("/api/webhook/client/create", AddClienProxy);
 openapi.post("/api/webhook/donations/create", SaveDonationProxy);
 openapi.get("/api/shoppingcar/viewproducts", ProductProxy);
@@ -39630,7 +39634,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-WOXdUk/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-IUslGQ/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -39663,7 +39667,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-WOXdUk/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-IUslGQ/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
