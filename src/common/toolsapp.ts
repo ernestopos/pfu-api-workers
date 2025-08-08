@@ -8,3 +8,10 @@ export function formatDateToDDMMYYYY(date: Date): string {
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 }
+
+export function generateTransactionId() {
+  const now = new Date();
+  const timestamp = now.getTime();
+  const randomPart = Math.floor(Math.random() * 100000);
+  return `PFU-${timestamp}-${randomPart}`;
+}
