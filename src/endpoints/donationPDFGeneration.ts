@@ -38,9 +38,8 @@ export class DonationPDFGeneration extends OpenAPIRoute{
 
     async handle(c) {
             const data = await this.getValidatedData<typeof this.schema>();
-            const donateData = data.body;
-            const donationPDF = await generateDonationPDF(donateData.resource.payer.name.given_name, Number(donateData.resource.purchase_units[0].amount.value), 'USD', new Date(), 'INV-12345');
-            
+            const donateData = data.body;            
+			const donationPDF = await generateDonationPDF(donateData.resource.payer.name.given_name,Number(donateData.resource.purchase_units[0].amount.value));            
             await sendDonationEmail(donateData.resource.payer.email_address,
                                     donationPDF,
                                     donateData.resource.payer.name.given_name);

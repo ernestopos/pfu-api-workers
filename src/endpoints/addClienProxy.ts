@@ -1,7 +1,7 @@
 import { Bool, OpenAPIRoute } from "chanfana";
 import { z } from "zod";
 import { Message, DonationSchema } from "../types";
-import { saveCliente } from "../dao/addClientDAO";
+import { saveCliente } from "../dao/ClientDAO";
 
 export class AddClienProxy extends OpenAPIRoute {
   schema = {

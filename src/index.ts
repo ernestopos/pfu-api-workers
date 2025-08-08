@@ -4,10 +4,11 @@ import { DonationPDFGeneration } from "./endpoints/donationPDFGeneration";
 import { UIIDDGeneratior } from "./endpoints/uIIDDGeneratior";
 import { SignatureIntegrity } from "./endpoints/signatureIntegrity";
 import { cors } from "hono/cors";
-import { WebHookWompiDonationPDFGeneration } from "./endpoints/webHookWompiDonationPDFGeneration";
 import { ProductProxy } from "./endpoints/ProductProxy";
 import { AddClienProxy } from "./endpoints/addClienProxy";
 import { SaveDonationProxy } from "./endpoints/saveDonationProxy";
+import { webHookWompiIntegration } from "./endpoints/webHookWompiIntegration";
+
 
 export type PFUBindings = {
   DB: D1Database;  
@@ -31,7 +32,7 @@ app.use("*", cors({
 openapi.post("/api/donations/generate-pdf", DonationPDFGeneration);
 openapi.get("/api/transaction/generate-uiidd", UIIDDGeneratior);
 openapi.post("/api/transaction/signature-transaction", SignatureIntegrity);
-openapi.post("/api/webhook/wompi/generate-pdf", WebHookWompiDonationPDFGeneration);
+openapi.post("/api/webhook/wompi/integration", webHookWompiIntegration);
 openapi.post("/api/webhook/client/create", AddClienProxy);
 openapi.post("/api/webhook/donations/create", SaveDonationProxy);
 

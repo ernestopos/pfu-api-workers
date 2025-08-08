@@ -3,12 +3,12 @@
 // export dynamically through wrangler, or we can potentially let users directly
 // add them as a sort of "plugin" system.
 
-import ENTRY, { __INTERNAL_WRANGLER_MIDDLEWARE__ } from "C:\\EPOSADA\\FUNDACIÓN\\PEFU\\WebSitePFU\\Backend\\Paypal\\cloudfare\\pfu-api-workers\\.wrangler\\tmp\\bundle-WOXdUk\\middleware-insertion-facade.js";
+import ENTRY, { __INTERNAL_WRANGLER_MIDDLEWARE__ } from "C:\\EPOSADA\\FUNDACIÓN\\PEFU\\WebSitePFU\\Backend\\Paypal\\cloudfare\\pfu-api-workers\\.wrangler\\tmp\\bundle-IUslGQ\\middleware-insertion-facade.js";
 import { __facade_invoke__, __facade_register__, Dispatcher } from "C:\\EPOSADA\\FUNDACIÓN\\PEFU\\WebSitePFU\\Backend\\Paypal\\cloudfare\\pfu-api-workers\\node_modules\\wrangler\\templates\\middleware\\common.ts";
-import type { WorkerEntrypointConstructor } from "C:\\EPOSADA\\FUNDACIÓN\\PEFU\\WebSitePFU\\Backend\\Paypal\\cloudfare\\pfu-api-workers\\.wrangler\\tmp\\bundle-WOXdUk\\middleware-insertion-facade.js";
+import type { WorkerEntrypointConstructor } from "C:\\EPOSADA\\FUNDACIÓN\\PEFU\\WebSitePFU\\Backend\\Paypal\\cloudfare\\pfu-api-workers\\.wrangler\\tmp\\bundle-IUslGQ\\middleware-insertion-facade.js";
 
 // Preserve all the exports from the worker
-export * from "C:\\EPOSADA\\FUNDACIÓN\\PEFU\\WebSitePFU\\Backend\\Paypal\\cloudfare\\pfu-api-workers\\.wrangler\\tmp\\bundle-WOXdUk\\middleware-insertion-facade.js";
+export * from "C:\\EPOSADA\\FUNDACIÓN\\PEFU\\WebSitePFU\\Backend\\Paypal\\cloudfare\\pfu-api-workers\\.wrangler\\tmp\\bundle-IUslGQ\\middleware-insertion-facade.js";
 
 class __Facade_ScheduledController__ implements ScheduledController {
 	readonly #noRetry: ScheduledController["noRetry"];
