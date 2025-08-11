@@ -1,9 +1,9 @@
 import { Bool, OpenAPIRoute } from "chanfana";
 import { z } from "zod";
 import { Message, WebhookWompiSchema } from "../types";
-import { sendDonationEmail } from "../common/sendMail";
-import { generateDonationPDF } from "../common/pdfGenerator";
 import { convertirCentavosAPesos } from "../common/toolsapp";
+import { generateAndDonationSend } from "../services/donationsServices";
+import { actualizarEstadoFactura } from "../dao/InvoiceDAO";
 
 export class webHookWompiIntegration extends OpenAPIRoute {
   schema = {
@@ -43,8 +43,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
   async handle(c) {
     const data = await this.getValidatedData<typeof this.schema>();
     const dataRequest = data.body;
-    let clientName: string = "";
-	let respondeData = null;
+    let respondeData = null;
 
     if (
       dataRequest.event !== "transaction.updated" &&
@@ -59,27 +58,24 @@ export class webHookWompiIntegration extends OpenAPIRoute {
     }
 
     const source = dataRequest.data.transaction.shipping_address;
-
-    if (!source?.trim()) {      
-		const { results } = await c.env.DB.prepare("SELECT * FROM CLIENTE WHERE CORREO = ?")
-	  	.bind(dataRequest.data.transaction.customer_email)
-        .all();
-
-      if (results.length > 0) {
-        clientName = results[0].NOMBRE;
-      }
-      const donationPDF = await generateDonationPDF(clientName,Number(convertirCentavosAPesos(dataRequest.data.transaction.amount_in_cents)));
-      await sendDonationEmail(dataRequest.data.transaction.customer_email,donationPDF,clientName);
+    if (!source?.trim()) {
+      await generateAndDonationSend(c.env, {
+        amount: Number(
+          convertirCentavosAPesos(dataRequest.data.transaction.amount_in_cents)
+        ),
+        email: dataRequest.data.transaction.customer_email,
+      });
       respondeData = {
         success: true,
         message: {
           message: "PDF generated successfully and email sent.",
-          description: "The PDF for the donation has been created and the email has been sent.",
+          description:
+            "The PDF for the donation has been created and the email has been sent.",
         },
       };
-    }else{
-
-	}
-	return respondeData;
+    } else {
+      actualizarEstadoFactura(c.env, dataRequest);
+    }
+    return respondeData;
   }
 }

@@ -55,6 +55,32 @@ export const PntegrityTemplate = z.object({
   amount: z.string().regex(/^[0-9]+(\.[0-9]{2})?$/)
 });
 
+/* ZOD PARA MANEJO DE FACTURAS */
+const DetalleFacturaSchema = z.object({
+  id_producto: z.number().int().positive("ID del producto inválido"),
+  cantidad: z.number().int().positive("Cantidad inválida"),
+  valor_unitario: z.number().int().nonnegative(),
+  valor_total: z.number().int().nonnegative()
+});
+
+export const FacturaSchema = z.object({
+  id_transaction: z.number().int().optional(), // porque a veces puede generarse después
+  codigo: z.string().min(1).max(200),
+  id_cliente: z.number().int().positive(),
+  valor_fact: z.number().int().positive(),
+  moneda: z.string().min(1).max(100),
+  fecha_venta: z.string().datetime(), // formato ISO 8601
+  estado: z.string().min(1).max(10),
+  pagado: z.number().int().min(0).max(1), // 0 = no pagado, 1 = pagado
+  departamento: z.string().min(1).max(100),
+  ciudad: z.string().min(1).max(200),
+  direccion: z.string().min(1).max(300),
+  articulo_enviado: z.number().int().min(0).max(1), // 0 = no enviado, 1 = enviado
+  detalles: z.array(DetalleFacturaSchema).min(1, "Debe tener al menos un detalle")
+});
+
+/* FIN MANEJO DE FACTURAS*/
+
 export const PaypalDonation = z.object({
   id: z.string(),
   create_time: z.string().datetime(),
