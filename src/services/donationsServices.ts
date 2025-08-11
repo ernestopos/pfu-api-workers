@@ -1,10 +1,12 @@
 import { generateDonationPDF } from "../common/pdfGenerator";
 import { sendDonationEmail } from "../common/sendMail";
+import { getNameCliente } from "../dao/ClientDAO";
 
-export async function sendPDFDonation(data) {
+
+export async function sendPDFDonation(name:String, amount:number,email_address:String) {
   try {      
-			const donationPDF = await generateDonationPDF(data);
-      await sendDonationEmail(data.resource.payer.email_address, donationPDF,data.resource.payer.name.given_name);
+			const donationPDF = await generateDonationPDF(name,amount);
+      await sendDonationEmail(email_address, donationPDF,name);
       return {
         success: true,
         message: {
@@ -22,6 +24,19 @@ export async function sendPDFDonation(data) {
     }
 }
 
-export async function generateAndDonationSend(data) {
-  
+/***
+ * Metodo de negocio que permite generar y enviar un certificado en formato PDF
+ */
+export async function generateAndDonationSend(env, data) {
+  try {
+      let name = await getNameCliente(env,data.email);  
+      return await sendPDFDonation(String(name), data.amount,data.email);			
+    } catch (error) {
+      console.error("Fallo el envío del certificado al cliente", error);
+      return {
+        success: false,
+        message: "Fallo el envío del certificado al cliente",
+        details: error,
+      };
+    }
 }
