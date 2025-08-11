@@ -69,7 +69,7 @@ export const FacturaSchema = z.object({
   id_cliente: z.number().int().positive(),
   valor_fact: z.number().int().positive(),
   moneda: z.string().min(1).max(100),
-  fecha_venta: z.string().datetime(), // formato ISO 8601
+  fecha_venta: z.coerce.date(), // formato ISO 8601
   estado: z.string().min(1).max(10),
   pagado: z.number().int().min(0).max(1), // 0 = no pagado, 1 = pagado
   departamento: z.string().min(1).max(100),
@@ -165,50 +165,4 @@ export const parametroSchema = z.object({
   VALOR: z.string().max(100),
   AGRUPADOR: z.string().max(100),
   ESTADO: z.number()
-});
-
-export const articuloSchema = z.object({
-  ID: z.number().optional(),
-  NOMBRE: z.string().max(100),
-  CODIGO: z.string().max(100),
-  DESCRIPCION: z.string().max(100),
-  FIGURE_CLASS: z.string().max(250),
-  IMG_SRC: z.string().max(250),
-  IMG_ALT: z.string().max(250),
-  IMG_CLASS: z.string().max(250),
-  IMG_ON_CLICK: z.string().max(250),
-  DATA_CODIGO: z.string().max(250),
-  DATA_NOMBRE: z.string().max(250),
-  DATA_DESCRIPCION: z.string().max(250),
-  FIGCAPTION: z.string().max(250),
-  ESTADO: z.number()
-});
-
-export const productoSchema = z.object({
-  ID: z.number().optional(),
-  ID_ARTICULO: z.number(),
-  ID_PARAMETRO: z.number(),
-  DATA_PRECIO: z.number(),
-  ESTADO: z.number()
-});
-
-export const facturaSchema = z.object({
-  ID: z.number().optional(),
-  CODIGO: z.string().max(200),
-  ID_CLIENTE: z.number(),
-  VALOR_FACT: z.number(),
-  MONEDA: z.string().max(100),
-  FECHA_VENTA: z.string(), // Puedes usar z.coerce.date() si usas Date
-  ESTADO: z.string().max(10),
-  PAGADO: z.number(),
-  ARTICULO_ENVIADO: z.string().max(100)
-});
-
-export const detallFacturaSchema = z.object({
-  ID: z.number().optional(),
-  ID_FACTURA: z.number(),
-  ID_PRODUCTO: z.number(),
-  CANTIDAD: z.number(),
-  VALOR_UNITARIO: z.number(),
-  VALOR_TOTAL: z.number()
 });
