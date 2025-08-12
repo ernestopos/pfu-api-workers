@@ -44,7 +44,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
     const data = await this.getValidatedData<typeof this.schema>();
     const dataRequest = data.body;
     let respondeData = null;
-    let shippingAddres = {};
+    
     if (
       dataRequest.event !== "transaction.updated" &&
       dataRequest.event !== "nequi_token.updated" &&
@@ -57,9 +57,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
       return new Response("Status not supported, right now", { status: 200 });
     }
 
-    shippingAddres = dataRequest.data.transaction.shipping_address;
-
-    if (shippingAddres == null) {
+    if (dataRequest.data?.transaction?.shipping_address === null) {
       await generateAndDonationSend(c.env, {
         amount: Number(
           convertirCentavosAPesos(dataRequest.data.transaction.amount_in_cents)
@@ -75,6 +73,9 @@ export class webHookWompiIntegration extends OpenAPIRoute {
         },
       };
     } else {
+      await c.env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES (?)")
+      .bind(JSON.stringify(dataRequest))
+      .all();
       actualizarEstadoFactura(c.env, dataRequest);
     }
     return respondeData;
