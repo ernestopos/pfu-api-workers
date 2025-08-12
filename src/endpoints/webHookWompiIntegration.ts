@@ -73,11 +73,16 @@ export class webHookWompiIntegration extends OpenAPIRoute {
         },
       };
     } else {
-      await c.env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES (?)")
-      .bind(JSON.stringify(dataRequest))
-      .all();
       actualizarEstadoFactura(c.env, dataRequest);
     }
+    respondeData = {
+        success: true,
+        message: {
+          message: "Invoice received successfully.",
+          description:
+            "Invoice received successfully.",
+        },
+    };
     return respondeData;
   }
 }
