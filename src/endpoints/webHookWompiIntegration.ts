@@ -60,8 +60,17 @@ export class webHookWompiIntegration extends OpenAPIRoute {
     await c.env.DB.prepare(
       "INSERT INTO PRUEBA(DATOS) VALUES(?)")
       .bind(JSON.stringify(dataRequest)).all();
+    
+    await c.env.DB.prepare(
+      "INSERT INTO PRUEBA(DATOS) VALUES(?)")
+      .bind("LLEGÓ AQUI 1").all();
 
     if (dataRequest.data?.transaction?.shipping_address === null) {
+      
+      await c.env.DB.prepare(
+      "INSERT INTO PRUEBA(DATOS) VALUES(?)")
+      .bind("LLEGÓ AQUI 1.1").all();
+      
       await generateAndDonationSend(c.env, {
         amount: Number(
           convertirCentavosAPesos(dataRequest.data.transaction.amount_in_cents)
@@ -77,6 +86,11 @@ export class webHookWompiIntegration extends OpenAPIRoute {
         },
       };
     } else {
+
+      await c.env.DB.prepare(
+      "INSERT INTO PRUEBA(DATOS) VALUES(?)")
+      .bind("LLEGÓ AQUI 1.2").all();
+
       actualizarEstadoFactura(c.env, dataRequest);
       respondeData = {
           success: true,
