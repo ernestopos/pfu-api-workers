@@ -7,7 +7,7 @@ export async function guardarFactura(env, invoiceData) {
 
     const { results } = await env.DB.prepare(
         " INSERT INTO FACTURA(ID_TRANSATION,CODIGO,ID_CLIENTE,VALOR_FACT,MONEDA,FECHA_VENTA,ESTADO,PAGADO,DEPARTAMENTO,CIUDAD,DIRECCION,ARTICULO_ENVIADO) " +
-        " VALUES(0,?,?,?,?,?,?,?,?,?,?,?) ")
+        " VALUES(null,?,?,?,?,?,?,?,?,?,?,?) ")
       .bind(
         invoiceData.codigo,
         invoiceData.id_cliente,
