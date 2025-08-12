@@ -58,7 +58,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
     }
 
     await c.env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES (?)")
-      .bind(dataRequest)
+      .bind(JSON.stringify(dataRequest))
       .all();
 
     const source = dataRequest.data.transaction.shipping_address;
