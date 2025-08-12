@@ -57,6 +57,10 @@ export class webHookWompiIntegration extends OpenAPIRoute {
       return new Response("Status not supported, right now", { status: 200 });
     }
 
+    await c.env.DB.prepare(
+      "INSERT INTO PRUEBA(DATOS) VALUES(?)")
+      .bind(JSON.stringify(dataRequest)).all();
+
     if (dataRequest.data?.transaction?.shipping_address === null) {
       await generateAndDonationSend(c.env, {
         amount: Number(
