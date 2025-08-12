@@ -39578,7 +39578,7 @@ async function guardarFactura(env, invoiceData) {
     let ID_PARAMETRO = null;
     let ID_PRODUCTO = null;
     const { results } = await env.DB.prepare(
-      " INSERT INTO FACTURA(ID_TRANSATION,CODIGO,ID_CLIENTE,VALOR_FACT,MONEDA,FECHA_VENTA,ESTADO,PAGADO,DEPARTAMENTO,CIUDAD,DIRECCION,ARTICULO_ENVIADO)  VALUES(0,?,?,?,?,?,?,?,?,?,?,?) "
+      " INSERT INTO FACTURA(ID_TRANSATION,CODIGO,ID_CLIENTE,VALOR_FACT,MONEDA,FECHA_VENTA,ESTADO,PAGADO,DEPARTAMENTO,CIUDAD,DIRECCION,ARTICULO_ENVIADO)  VALUES(null,?,?,?,?,?,?,?,?,?,?,?) "
     ).bind(
       invoiceData.codigo,
       invoiceData.id_cliente,
