@@ -5,15 +5,9 @@ import { actualizarEstadoFactura, guardarFactura } from "../dao/InvoiceDAO";
 
 export async function generacionFactura(env, invoiceData) {
   try {
-      guardarFactura(env, invoiceData);      
+      let result = guardarFactura(env, invoiceData);      
       //await sendDonationEmail(email_address, donationPDF,name);
-      return {
-        success: true,
-        message: {
-            message: "Invoice generated successfully and email sent.",
-            description: "Invoice generated successfully and email sent for customer.",
-        },
-      };
+      return result;
     } catch (error) {
       console.error("Fallo la creación de una nueva Factura", error);
       return {

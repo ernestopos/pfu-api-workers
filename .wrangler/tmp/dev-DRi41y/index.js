@@ -39739,14 +39739,8 @@ init_modules_watch_stub();
 init_modules_watch_stub();
 async function generacionFactura(env, invoiceData) {
   try {
-    guardarFactura(env, invoiceData);
-    return {
-      success: true,
-      message: {
-        message: "Invoice generated successfully and email sent.",
-        description: "Invoice generated successfully and email sent for customer."
-      }
-    };
+    let result = guardarFactura(env, invoiceData);
+    return result;
   } catch (error) {
     console.error("Fallo la creaci\xF3n de una nueva Factura", error);
     return {
@@ -39796,15 +39790,7 @@ var InvoiceProxy = class extends OpenAPIRoute {
   async handle(c4) {
     const data = await this.getValidatedData();
     const invoiceData = data.body;
-    generacionFactura(c4.env, invoiceData);
-    return {
-      success: true,
-      result: 0,
-      message: {
-        message: "Invoice Checkout generated successfully",
-        description: "Invoice Checkout generated successfully."
-      }
-    };
+    return generacionFactura(c4.env, invoiceData);
   }
 };
 

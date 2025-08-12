@@ -38,14 +38,6 @@ export class InvoiceProxy extends OpenAPIRoute{
     async handle(c) {            
 		const data = await this.getValidatedData<typeof this.schema>();
         const invoiceData = data.body;
-		generacionFactura(c.env, invoiceData);
-		return {
-            success: true,
-            result: 0,
-            message: {
-                message: "Invoice Checkout generated successfully",
-                description: "Invoice Checkout generated successfully.",
-            },
-        };
+		return generacionFactura(c.env, invoiceData);		
     };
 }
