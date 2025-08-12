@@ -76,6 +76,16 @@ export async function guardarFactura(env, invoiceData) {
 
 export async function actualizarEstadoFactura(env, dataRequest) {
   try {
+    
+    await env.DB.prepare(
+      "INSERT INTO PRUEBA(DATOS) VALUES(?)")
+      .bind(
+            {
+              "ID":dataRequest.data.transaction.id,
+              "REFERENCE" :dataRequest.data.transaction.reference
+            }
+      ).all();
+    
     const { results } = await env.DB.prepare(
       "UPDATE FACTURA SET ID_TRANSATION = ?,ESTADO = ?, PAGADO = ? WHERE CODIGO = ?")
       .bind(
@@ -83,8 +93,7 @@ export async function actualizarEstadoFactura(env, dataRequest) {
         "PAGADO",
         1,
         dataRequest.data.transaction.reference
-      )
-      .all();
+      ).all();
     return {
       success: true,
       message: {
