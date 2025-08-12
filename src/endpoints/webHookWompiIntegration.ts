@@ -74,15 +74,15 @@ export class webHookWompiIntegration extends OpenAPIRoute {
       };
     } else {
       actualizarEstadoFactura(c.env, dataRequest);
-    }
-    respondeData = {
-        success: true,
-        message: {
-          message: "Invoice received successfully.",
-          description:
-            "Invoice received successfully.",
-        },
-    };
+      respondeData = {
+          success: true,
+          message: {
+            message: "Invoice received successfully.",
+            description:
+              "Invoice received successfully.",
+          },
+      };
+    }    
     return respondeData;
   }
 }
