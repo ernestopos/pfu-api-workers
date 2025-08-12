@@ -54,6 +54,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
     }
 
     if (dataRequest.data.transaction.status !== "APPROVED") {
+      await actualizarEstadoFactura(c.env, dataRequest);
       return new Response("Status not supported, right now", { status: 200 });
     }
 
