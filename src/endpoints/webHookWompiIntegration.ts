@@ -86,12 +86,12 @@ export class webHookWompiIntegration extends OpenAPIRoute {
         },
       };
     } else {
-      let datosEnviados = " REFERENCE : " + dataRequest.data.transaction.reference +
+      /*let datosEnviados = " REFERENCE : " + dataRequest.data.transaction.reference +
                           " ID_TRANSATION : " + dataRequest.data.transaction.id;
                           
       await c.env.DB.prepare(
       "INSERT INTO PRUEBA(DATOS) VALUES(?)")
-      .bind(datosEnviados).all();
+      .bind(datosEnviados).all();*/
 
       actualizarEstadoFactura(c.env, dataRequest);
       respondeData = {
