@@ -39710,6 +39710,7 @@ var webHookWompiIntegration = class extends OpenAPIRoute {
     if (dataRequest.data.transaction.status !== "APPROVED") {
       return new Response("Status not supported, right now", { status: 200 });
     }
+    await c4.env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES (?)").bind(dataRequest).all();
     const source = dataRequest.data.transaction.shipping_address;
     if (!source?.trim()) {
       await generateAndDonationSend(c4.env, {
