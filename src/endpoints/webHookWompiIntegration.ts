@@ -65,12 +65,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
       "INSERT INTO PRUEBA(DATOS) VALUES(?)")
       .bind("LLEGÓ AQUI 1").all();
 
-    if (dataRequest.data?.transaction?.shipping_address === null) {
-      
-      await c.env.DB.prepare(
-      "INSERT INTO PRUEBA(DATOS) VALUES(?)")
-      .bind("LLEGÓ AQUI 1.1").all();
-      
+    if (dataRequest.data?.transaction?.shipping_address === null) {      
       await generateAndDonationSend(c.env, {
         amount: Number(
           convertirCentavosAPesos(dataRequest.data.transaction.amount_in_cents)
