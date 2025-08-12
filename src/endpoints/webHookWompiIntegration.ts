@@ -59,7 +59,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
 
     shippingAddres = dataRequest.data.transaction.shipping_address;
 
-    if (shippingAddres === null) {
+    if (shippingAddres == null) {
       await generateAndDonationSend(c.env, {
         amount: Number(
           convertirCentavosAPesos(dataRequest.data.transaction.amount_in_cents)
