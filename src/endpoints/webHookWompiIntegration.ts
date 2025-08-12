@@ -44,7 +44,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
     const data = await this.getValidatedData<typeof this.schema>();
     const dataRequest = data.body;
     let respondeData = null;
-    let shippingAddres = [];
+    let shippingAddres = {};
     if (
       dataRequest.event !== "transaction.updated" &&
       dataRequest.event !== "nequi_token.updated" &&
@@ -58,6 +58,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
     }
 
     shippingAddres = dataRequest.data.transaction.shipping_address;
+
     if (shippingAddres === null) {
       await generateAndDonationSend(c.env, {
         amount: Number(
