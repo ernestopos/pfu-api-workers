@@ -40,5 +40,6 @@ openapi.post("/api/webhook/donations/create", SaveDonationProxy);
 // API FOR SHOPPING CAR INTEGRATION
 openapi.get("/api/shoppingcar/viewproducts", ProductProxy);
 openapi.get("/api/shoppingcar/viewcategorys/:id", CategoryProxy);
+openapi.get("/api/shoppingcar/viewcategorys", ProductProxy);
 openapi.post("/api/shoppingcar/checkout", InvoiceProxy);
 export default app;
