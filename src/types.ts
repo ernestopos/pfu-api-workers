@@ -24,6 +24,10 @@ export const DonationSchema = z.object({
   clientidtype:z.string().max(20)
 });
 
+export const findCategory = z.object({
+  id: z.number().int().nonnegative()  
+});
+
 export const WebhookWompiSchema = z.object({
   event: z.literal("transaction.updated"),
   data: z.object({
