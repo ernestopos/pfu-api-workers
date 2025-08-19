@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS CLIENTE(ID INTEGER PRIMARY KEY AUTOINCREMENT,NOMBRE V
 DROP TABLE IF EXISTS DETALL_FACTURA;
 DROP TABLE IF EXISTS FACTURA;
 DROP TABLE IF EXISTS PRODUCTO;
+DROP TABLE IF EXISTS CATEGORIA;
 DROP TABLE IF EXISTS ARTICULO;
 DROP TABLE IF EXISTS PARAMETRO;
 
@@ -243,3 +244,122 @@ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTA
 INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (2, 12, 7, 49900, 1);
 INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (2, 12, 8, 49900, 1);
 INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (2, 12, 9, 49900, 1);
+
+INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Pillamas para niños: Pijama Cósmica Azul Cielo',
+ 'PILLN005',
+ 'Hermosa pijama en tonos azul cielo con estampado sutil de cohetes y lunas desvanecidos. Incluye el logo oficial, brindando un diseño único que combina comodidad y aventura espacial para los más pequeños',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/pijamas_nino_1.png',
+ 'Hermosa pijama en tonos azul cielo con estampado sutil de cohetes y lunas desvanecidos. Incluye el logo oficial, brindando un diseño único que combina comodidad y aventura espacial para los más pequeños',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'PILLN005',
+ 'Pillamas para niños: Pijama Cósmica Azul Cielo',
+ 'Pillamas para niños: Pijama Cósmica Azul Cielo',
+ 'Pillamas para niños: Pijama Cósmica Azul Cielo',
+ 1);
+
+ INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Pillamas para niñas: Conjunto Rosado',
+ 'PILLN006',
+ 'Dulce pijama tipo batica en color rosado, con detalles suaves y delicados. Perfecta para brindar confort y ternura en las noches de descanso',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/pijamas_nina_1.png',
+ 'Dulce pijama tipo batica en color rosado, con detalles suaves y delicados. Perfecta para brindar confort y ternura en las noches de descanso',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'PILLN006',
+ 'Pillamas para niñas: Conjunto Rosado',
+ 'Pillamas para niñas: Conjunto Rosado',
+ 'Pillamas para niñas: Conjunto Rosado',
+ 1);
+
+ INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Pillamas para bebes: Conjunto Rosado',
+ 'PILLN007',
+ 'Dulce pijama tipo batica en color rosado, con detalles suaves y delicados. Perfecta para brindar confort y ternura en las noches de descanso',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/pijamas_bebe_nena.png',
+ 'Dulce pijama tipo batica en color rosado, con detalles suaves y delicados. Perfecta para brindar confort y ternura en las noches de descanso',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'PILLN007',
+ 'Pillamas para bebes: Conjunto Rosado',
+ 'Pillamas para bebes: Conjunto Rosado',
+ 'Pillamas para bebes: Conjunto Rosado',
+ 1);
+
+  INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Pillamas para Mujer: Pijama Rosada Esencial',
+ 'PILLN008',
+ 'Elegante conjunto de dos piezas en tono rosado, con el logo oficial estampado delicadamente. Diseñada para ofrecer confort y estilo, perfecta para noches relajadas y llenas de encanto',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/pijamas_adultos.png',
+ 'Elegante conjunto de dos piezas en tono rosado, con el logo oficial estampado delicadamente. Diseñada para ofrecer confort y estilo, perfecta para noches relajadas y llenas de encanto',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'PILLN008',
+ 'Pillamas para Mujer: Pijama Rosada Esencial',
+ 'Pillamas para Mujer: Pijama Rosada Esencial',
+ 'Pillamas para Mujer: Pijama Rosada Esencial',
+ 1);
+
+INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Pijama Rosada Estilo Princesa Infantil',
+ 'PILLN009',
+ 'Una pijama de dos piezas diseñada especialmente para niñas, con un delicado tono rosado y un estilo elegante que recuerda a una pequeña princesa. Su tela suave y cómoda brinda frescura y libertad de movimiento, ideal para noches tranquilas y dulces sueños',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/pijama_nina2.png',
+ 'Una pijama de dos piezas diseñada especialmente para niñas, con un delicado tono rosado y un estilo elegante que recuerda a una pequeña princesa. Su tela suave y cómoda brinda frescura y libertad de movimiento, ideal para noches tranquilas y dulces sueños',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'PILLN009',
+ 'Pijama Rosada Estilo Princesa Infantil',
+ 'Pijama Rosada Estilo Princesa Infantil',
+ 'Pijama Rosada Estilo Princesa Infantil',
+ 1);
+ 
+
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 13, 5, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 13, 6, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 13, 7, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 13, 8, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 13, 9, 49900, 1);
+
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 14, 5, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 14, 6, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 14, 7, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 14, 8, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 14, 9, 49900, 1);
+
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 15, 5, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 15, 6, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 15, 7, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 15, 8, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 15, 9, 49900, 1);
+
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 16, 5, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 16, 6, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 16, 7, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 16, 8, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 16, 9, 49900, 1);
+
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 17, 5, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 17, 6, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 17, 7, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 17, 8, 49900, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (3, 17, 9, 49900, 1);
+
+INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) VALUES ('Equipo Comercial', 'correo enviado al comercial', 'comercial@peerkals.com', 'EMAIL_FACT', 1);
+INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) VALUES ('Equipo Despacho', 'correo enviado a despachos', 'despachos@peerkals.com', 'EMAIL_FACT', 1);
