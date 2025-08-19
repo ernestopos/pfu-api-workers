@@ -20,7 +20,7 @@ export async function sendInvoiceEmail(toEmail:any,equipo:any,datosFactura:any,s
       encabezadoCorreo=`<tr>
                   <td style="font-size: 16px; color: #333333;">
                     <p style="font-size: 15px; line-height: 1.5; color:#444;">
-                      ¡${equipo}! Cada compra es una oportunidad para brillar. El cliente confía en nosotros, hagamos que su experiencia sea impecable ✨🚀.
+                      ¡${equipo}! Cada compra es una nueva oportunidad para brillar. El cliente confía en nosotros, hagamos que su experiencia sea impecable ✨🚀.
                     </p>
                   </td>
                 </tr>`;
