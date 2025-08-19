@@ -94,3 +94,43 @@ export async function actualizarEstadoFactura(env, dataRequest) {
     };
   }
 }
+
+export async function obtenerEncabezadoFactura(env, reference) {
+  try {
+      const {results}  =  await env.DB.prepare("SELECT "+
+                           " FACT.ID AS IDFACT,CLI.NOMBRE AS NOMBRECLIENTE,CLI.NUMERODOC,CLI.CORREO,FACT.ID_TRANSATION,FACT.CODIGO, " +
+                           " FACT.FECHA_VENTA,FACT.VALOR_FACT,FACT.MONEDA,FACT.DEPARTAMENTO,FACT.CIUDAD,FACT.DIRECCION,FACT.ESTADO,FACT.ARTICULO_ENVIADO "+
+                           " FROM FACTURA FACT " +
+                           " INNER JOIN CLIENTE CLI ON CLI.ID = FACT.ID_CLIENTE " +
+                           " WHERE FACT.CODIGO = ? ")
+      .bind(reference).all();
+      return results;
+  } catch (error) {
+    console.error("Fallo al obtener el encabezado de una factura", error);
+    return {
+      error: true,
+      message: "Fallo al obtener el encabezado de una factura",
+      details: error,
+    };
+  }
+}
+
+export async function obtenerDetalleFactura(env, idFact) {
+  try {
+      const {results}  = await env.DB.prepare(" SELECT "+
+                                  " ART.CODIGO AS CODIGOARTICULO, ART.NOMBRE AS NOMBREARTICULO,ART.IMG_SRC,DETF.CANTIDAD,DETF.VALOR_UNITARIO,DETF.VALOR_TOTAL " +
+                                  " FROM DETALL_FACTURA DETF " +
+                                  " INNER JOIN PRODUCTO PRO ON PRO.ID = DETF.ID_PRODUCTO " +
+                                  " INNER JOIN ARTICULO ART ON ART.ID = PRO.ID_ARTICULO " +
+                                  " WHERE DETF.ID_FACTURA = ? ")
+      .bind(idFact).all();
+      return results;    
+  } catch (error) {
+    console.error("Fallo al obtener el detalle de una factura", error);
+    return {
+      error: true,
+      message: "Fallo al obtener el detalle de una factura",
+      details: error,
+    };
+  }
+}

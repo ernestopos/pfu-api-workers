@@ -4,6 +4,7 @@ import { Message, WebhookWompiSchema } from "../types";
 import { convertirCentavosAPesos } from "../common/toolsapp";
 import { generateAndDonationSend } from "../services/donationsServices";
 import { actualizarEstadoFactura } from "../dao/InvoiceDAO";
+import { enviarCorreoConfirmacionFactura } from "../services/invoiceServices";
 
 export class webHookWompiIntegration extends OpenAPIRoute {
   schema = {
@@ -75,6 +76,7 @@ export class webHookWompiIntegration extends OpenAPIRoute {
       };
     } else {
       await actualizarEstadoFactura(c.env, dataRequest);
+      await enviarCorreoConfirmacionFactura(c.env, dataRequest);
       respondeData = {
           success: true,
           message: {

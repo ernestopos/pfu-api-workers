@@ -19850,10 +19850,10 @@ var init_index_es = __esm({
   }
 });
 
-// .wrangler/tmp/bundle-UK0trZ/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-nVXoPa/middleware-loader.entry.ts
 init_modules_watch_stub();
 
-// .wrangler/tmp/bundle-UK0trZ/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-nVXoPa/middleware-insertion-facade.js
 init_modules_watch_stub();
 
 // src/index.ts
@@ -39659,6 +39659,232 @@ async function actualizarEstadoFactura(env, dataRequest) {
   }
 }
 __name(actualizarEstadoFactura, "actualizarEstadoFactura");
+async function obtenerEncabezadoFactura(env, reference) {
+  try {
+    const { results } = await env.DB.prepare("SELECT  FACT.ID AS IDFACT,CLI.NOMBRE AS NOMBRECLIENTE,CLI.NUMERODOC,CLI.CORREO,FACT.ID_TRANSATION,FACT.CODIGO,  FACT.FECHA_VENTA,FACT.VALOR_FACT,FACT.MONEDA,FACT.DEPARTAMENTO,FACT.CIUDAD,FACT.DIRECCION,FACT.ESTADO,FACT.ARTICULO_ENVIADO  FROM FACTURA FACT  INNER JOIN CLIENTE CLI ON CLI.ID = FACT.ID_CLIENTE  WHERE FACT.CODIGO = ? ").bind(reference).all();
+    return results;
+  } catch (error) {
+    console.error("Fallo al obtener el encabezado de una factura", error);
+    return {
+      error: true,
+      message: "Fallo al obtener el encabezado de una factura",
+      details: error
+    };
+  }
+}
+__name(obtenerEncabezadoFactura, "obtenerEncabezadoFactura");
+async function obtenerDetalleFactura(env, idFact) {
+  try {
+    const { results } = await env.DB.prepare(" SELECT  ART.CODIGO AS CODIGOARTICULO, ART.NOMBRE AS NOMBREARTICULO,ART.IMG_SRC,DETF.CANTIDAD,DETF.VALOR_UNITARIO,DETF.VALOR_TOTAL  FROM DETALL_FACTURA DETF  INNER JOIN PRODUCTO PRO ON PRO.ID = DETF.ID_PRODUCTO  INNER JOIN ARTICULO ART ON ART.ID = PRO.ID_ARTICULO  WHERE DETF.ID_FACTURA = ? ").bind(idFact).all();
+    return results;
+  } catch (error) {
+    console.error("Fallo al obtener el detalle de una factura", error);
+    return {
+      error: true,
+      message: "Fallo al obtener el detalle de una factura",
+      details: error
+    };
+  }
+}
+__name(obtenerDetalleFactura, "obtenerDetalleFactura");
+
+// src/services/invoiceServices.ts
+init_modules_watch_stub();
+
+// src/common/sendInvoiceMail.ts
+init_modules_watch_stub();
+async function sendInvoiceEmail(toEmail, equipo, datosFactura, sw) {
+  try {
+    const apiKey = Security.RESEND_API_KEY;
+    let detalle = "";
+    let datosenvio = "";
+    let encabezadoCorreo = "";
+    if (sw === 1) {
+      encabezadoCorreo = `<tr>
+                  <td style="font-size: 16px; color: #333333;">
+                    <p>Hola <strong>${datosFactura.encabezado.NOMBRECLIENTE}</strong>,</p>
+                    <p style="font-size: 15px; line-height: 1.5; color:#444;">
+                      \xA1Gracias por tu compra! \u{1F64C}  
+                      Cada adquisici\xF3n que realizas no solo te acerca a un gran producto, sino que tambi\xE9n impulsa nuestro objetivo social, 
+                      ayudando a transformar vidas y cumplir sue\xF1os.
+                    </p>
+                  </td>
+                </tr>`;
+    } else {
+      encabezadoCorreo = `<tr>
+                  <td style="font-size: 16px; color: #333333;">
+                    <p style="font-size: 15px; line-height: 1.5; color:#444;">
+                      \xA1${equipo}! Cada compra es una oportunidad para brillar. El cliente conf\xEDa en nosotros, hagamos que su experiencia sea impecable \u2728\u{1F680}.
+                    </p>
+                  </td>
+                </tr>`;
+    }
+    datosFactura.detalle.forEach((producto) => {
+      detalle = detalle + `<tr>
+                  <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="10" style="border:1px solid #ddd; border-radius:6px;">
+                      <tr style="background-color:#f9f9f9;">
+                        <th align="center">Foto</th>  
+                        <th align="left">Producto</th>                        
+                        <th align="right">Cantidad</th>
+                        <th align="right">Precio</th>
+                        <th align="right">SubTotal</th>
+                      </tr>
+                      <tr>
+                        <td><img src="${producto.IMG_SRC}" alt="Producto" width="100" height="100" style="border-radius:4px;"></td>
+                        <td>${producto.CODIGOARTICULO} - ${producto.NOMBREARTICULO}</td>
+                        <td align="center">${producto.CANTIDAD}</td>
+                        <td align="right">${producto.VALOR_UNITARIO}</td>
+                        <td align="right">${producto.VALOR_TOTAL}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p style="font-family: Arial, sans-serif; font-size:16px; font-weight:bold; color:#222; text-align:right; margin-top:-10px;">
+                      Total Factura: $ ${datosFactura.encabezado.VALOR_FACT}
+                    </p>
+                  </td>
+                </tr>
+                `;
+    });
+    datosenvio = datosenvio + `<tr>
+                  <tr>
+                  <td style="padding-top:20px; font-size:14px; color:#555;">
+                    <p><strong>Direcci\xF3n de entrega:</strong></p>
+                    <p>Departamento: ${datosFactura.encabezado.DEPARTAMENTO}</p>
+                    <p>Ciudad: ${datosFactura.encabezado.CIUDAD}</p>
+                    <p>Direcci\xF3n: ${datosFactura.encabezado.DIRECCION}</p>                    
+                    <p style="font-size:13px; color:#777;">
+                      Nota: Los costos de env\xEDo ser\xE1n asumidos por el cliente bajo modalidad de pago contra entrega.
+                    </p>
+                  </td>
+                </tr>
+                `;
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: Security.EMAIL_FROM,
+        to: [toEmail],
+        subject: "PFU - Confirmaci\xF3n de la Factura :" + datosFactura.encabezado.CODIGO,
+        html: `<div style="text-align:center; padding:20px;">
+            <img src="https://www.peerkals.com/wp/wp-content/uploads/2025/07/PFU-Logo_blanco.png" alt="Logo Fundaci\xF3n PFU" width="120" style="margin-bottom:10px;">
+            <h1 style="font-family: Arial, sans-serif; color:#333; margin:0;">PFU - Peerkals Foundation</h1>
+        </div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="center" style="padding: 20px 0;">
+              <table width="600" border="0" cellspacing="0" cellpadding="20" style="background-color: #ffffff; border-radius: 8px;">
+                <tr>
+                  <td align="right" style="font-size: 12px; color: #888888;">
+                    <span>${datosFactura.encabezado.FECHA_VENTA}</span>
+                  </td>
+                </tr>` + encabezadoCorreo + `<tr>
+                  <td style="border-top: 2px solid #eee; padding-top:20px;">
+                    <h2 style="margin:0; color:#333;">Factura N\xB0 ${datosFactura.encabezado.CODIGO}</h2>
+                  </td>
+                </tr>` + detalle + ` 
+          ` + datosenvio + `                
+                <tr>
+                  <td align="center" style="font-size:12px; color:#aaaaaa; padding-top:20px;">
+                    \xA9 2025 Nuestra Tienda - Todos los derechos reservados
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      `
+      })
+    });
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.error("Error sending donation email:", error);
+    return {
+      error: true,
+      message: "Fallo al enviar el correo",
+      details: error
+    };
+  }
+}
+__name(sendInvoiceEmail, "sendInvoiceEmail");
+
+// src/dao/ParametersDAO.ts
+init_modules_watch_stub();
+async function getCorreosFacturaci\u00F3n(env) {
+  try {
+    const { results } = await env.DB.prepare(
+      " SELECT PARA.NOMBRE AS TEAM,PARA.VALOR AS EMAIL  FROM PARAMETRO PARA  WHERE PARA.AGRUPADOR='EMAIL_FACT'"
+    ).all();
+    return results;
+  } catch (error) {
+    console.error("Fallo la obtenci\xF3n de los correos de env\xEDo despues de la facturaci\xF3n", error);
+    return {
+      error: true,
+      message: "Fallo la obtenci\xF3n de los correos de env\xEDo despues de la facturaci\xF3n",
+      details: error
+    };
+  }
+}
+__name(getCorreosFacturaci\u00F3n, "getCorreosFacturaci\xF3n");
+
+// src/services/invoiceServices.ts
+async function generacionFactura(env, invoiceData) {
+  try {
+    let result = guardarFactura(env, invoiceData);
+    return result;
+  } catch (error) {
+    console.error("Fallo la creaci\xF3n de una nueva Factura", error);
+    return {
+      error: true,
+      message: "Fallo la creaci\xF3n de una nueva Factura",
+      details: error
+    };
+  }
+}
+__name(generacionFactura, "generacionFactura");
+async function enviarCorreoConfirmacionFactura(env, dataRequest) {
+  try {
+    let encabezado = await obtenerEncabezadoFactura(
+      env,
+      dataRequest.data.transaction.reference
+    );
+    if (encabezado.length > 0) {
+      let detalle = await obtenerDetalleFactura(env, encabezado[0].IDFACT);
+      let datosFactura = {
+        encabezado: encabezado[0],
+        detalle
+      };
+      await sendInvoiceEmail(dataRequest.data.transaction.shipping_address, dataRequest.data.transaction.shipping_address, datosFactura, 1);
+      let correos = await getCorreosFacturaci\u00F3n(env);
+      console.log(correos);
+      for (const correo of correos) {
+        await sendInvoiceEmail(correo.EMAIL, correo.TEAM, datosFactura, 0);
+      }
+    }
+    return {
+      success: true,
+      message: {
+        message: "Invoice updated successfully and email sent.",
+        description: "Invoice updated successfully and email sent."
+      }
+    };
+  } catch (error) {
+    console.error("Fallo la actualizaci\xF3n de la Factura", error);
+    return {
+      error: true,
+      message: "Fallo la actualizaci\xF3n de la Factura",
+      details: error
+    };
+  }
+}
+__name(enviarCorreoConfirmacionFactura, "enviarCorreoConfirmacionFactura");
 
 // src/endpoints/webHookWompiIntegration.ts
 var webHookWompiIntegration = class extends OpenAPIRoute {
@@ -39723,6 +39949,7 @@ var webHookWompiIntegration = class extends OpenAPIRoute {
       };
     } else {
       await actualizarEstadoFactura(c4.env, dataRequest);
+      await enviarCorreoConfirmacionFactura(c4.env, dataRequest);
       respondeData = {
         success: true,
         message: {
@@ -39737,25 +39964,6 @@ var webHookWompiIntegration = class extends OpenAPIRoute {
 
 // src/endpoints/InvoiceProxy.ts
 init_modules_watch_stub();
-
-// src/services/invoiceServices.ts
-init_modules_watch_stub();
-async function generacionFactura(env, invoiceData) {
-  try {
-    let result = guardarFactura(env, invoiceData);
-    return result;
-  } catch (error) {
-    console.error("Fallo la creaci\xF3n de una nueva Factura", error);
-    return {
-      error: true,
-      message: "Fallo la creaci\xF3n de una nueva Factura",
-      details: error
-    };
-  }
-}
-__name(generacionFactura, "generacionFactura");
-
-// src/endpoints/InvoiceProxy.ts
 var InvoiceProxy = class extends OpenAPIRoute {
   static {
     __name(this, "InvoiceProxy");
@@ -39985,7 +40193,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-UK0trZ/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-nVXoPa/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -40018,7 +40226,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-UK0trZ/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-nVXoPa/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
