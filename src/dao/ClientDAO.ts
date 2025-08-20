@@ -16,8 +16,8 @@ export async function saveCliente(env, client) {
             client.customer_email
         )
       .all();
-     const { createClient } = await env.DB.prepare("SELECT * FROM CLIENTE WHERE NUMERODOC = ?").bind(client.clientid).all();
-      ID_CLIENTE = createClient[0].ID;  
+     const { results } = await env.DB.prepare("SELECT * FROM CLIENTE WHERE NUMERODOC = ?").bind(client.clientid).all();
+      ID_CLIENTE = results[0].ID;  
     }else{
       ID_CLIENTE = results[0].ID;
     }
