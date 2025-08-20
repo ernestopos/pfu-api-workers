@@ -54,6 +54,8 @@ export async function enviarCorreoConfirmacionFactura(env, dataRequest) {
         encabezado: encabezado[0],
         detalle: detalle,
       };
+      await env.DB.prepare(" INSERT INTO PRUEBA(DATOS) VALUE(?)").bind(dataRequest).all();
+      await env.DB.prepare(" INSERT INTO PRUEBA(DATOS) VALUE(?)").bind(dataRequest.data.transaction.shipping_address).all();
       await sendInvoiceEmail(dataRequest.data.transaction.shipping_address,dataRequest.data.transaction.shipping_address, datosFactura, 1);
       let correos = await getCorreosFacturación(env);
       console.log(correos);
