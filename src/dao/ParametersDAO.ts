@@ -1,4 +1,4 @@
-export async function getCorreosFacturación(env) {
+export async function getCorreosFacturacion(env) {
   try {
     const {results} = await env.DB.prepare(
 				" SELECT PARA.NOMBRE AS TEAM,PARA.VALOR AS EMAIL " +

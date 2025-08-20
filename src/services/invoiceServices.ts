@@ -5,7 +5,7 @@ import {
   obtenerEncabezadoFactura,
   obtenerDetalleFactura,
 } from "../dao/InvoiceDAO";
-import { getCorreosFacturación } from "../dao/ParametersDAO";
+import { getCorreosFacturacion } from "../dao/ParametersDAO";
 
 export async function generacionFactura(env, invoiceData) {
   try {
@@ -53,11 +53,18 @@ export async function enviarCorreoConfirmacionFactura(env, dataRequest) {
         encabezado: encabezado[0],
         detalle: detalle,
       };
+
+      await env.DB.prepare("INSERT INTO PRUEBAS(DATOS) VALUES(?)")
+      .bind(JSON.stringify(datosFactura, null, 2)).all();
+
+      await env.DB.prepare("INSERT INTO PRUEBAS(DATOS) VALUES(?)")
+      .bind(JSON.stringify("correo recibido : " + dataRequest.data.transaction.customer_email, null, 2)).all();
+
       await sendInvoiceEmail(dataRequest.data.transaction.customer_email,dataRequest.data.transaction.customer_email, datosFactura, 1);
-      let correos = await getCorreosFacturación(env);
+      let correos = await getCorreosFacturacion(env);
       console.log(correos);
       for (const correo of correos) {
-        await sendInvoiceEmail(correo.EMAIL,correo.TEAM, datosFactura, 0);
+        //await sendInvoiceEmail(correo.EMAIL,correo.TEAM, datosFactura, 0);
       }
     }
     return {
