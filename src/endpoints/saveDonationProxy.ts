@@ -42,7 +42,8 @@ export class SaveDonationProxy extends OpenAPIRoute {
     try {
       const data = await this.getValidatedData<typeof this.schema>();
       const donation = data.body;
-      return saveDonacion(c.env,donation);      
+      const donacionResult = await saveDonacion(c.env,donation);
+      return donacionResult;       
     } catch (error) {
       console.error("Fallo la creación de un nuevo cliente", error);
       return {
