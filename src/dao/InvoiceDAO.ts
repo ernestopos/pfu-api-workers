@@ -1,8 +1,6 @@
 export async function guardarFactura(env, invoiceData) {
   try {
     let ID_FACTURA = null;
-    let ID_ARTICULO = null;
-    let ID_PARAMETRO=null;
     let ID_PRODUCTO=null;
 
     const { results } = await env.DB.prepare(
@@ -31,20 +29,13 @@ export async function guardarFactura(env, invoiceData) {
       ID_FACTURA = resultsFactura.results[0].ID;
     }
     
-    for (const item of invoiceData.detalles) {    
-      let resultsArticulo  = await env.DB.prepare("SELECT ID FROM ARTICULO WHERE CODIGO = ?").bind(item.codigo).all();
-      if(resultsArticulo.results && resultsArticulo.results.length > 0){
-        ID_ARTICULO = resultsArticulo.results[0].ID;
-      }      
-      
-      let resultsParametro  = await env.DB.prepare("SELECT ID FROM PARAMETRO WHERE VALOR = ? AND NOMBRE ='Talla' AND AGRUPADOR='TALLA'"
-      ).bind(item.talla).all();
-      if(resultsParametro.results && resultsParametro.results.length > 0){
-        ID_PARAMETRO = resultsParametro.results[0].ID;
-      }      
-      let resultsProducto  = await env.DB.prepare("SELECT ID FROM PRODUCTO WHERE ID_ARTICULO = ? AND ID_PARAMETRO = ?"
-      )
-      .bind(ID_ARTICULO,ID_PARAMETRO)
+    for (const item of invoiceData.detalles) {          
+      let resultsProducto  = await env.DB.prepare(" SELECT PRO.ID AS ID " +
+                                                  " FROM ARTICULO ART " +
+                                                  " INNER JOIN PRODUCTO PRO ON PRO.ID_ARTICULO = ART.ID " +
+                                                  " INNER JOIN PARAMETRO PAR ON PRO.ID_PARAMETRO = PAR.ID " +
+                                                  " WHERE ART.ID = ? AND PAR.VALOR= ?")
+      .bind(item.id_articulo,item.talla)
       .all();
       if(resultsProducto.results && resultsProducto.results.length > 0){
         ID_PRODUCTO = resultsProducto.results[0].ID;

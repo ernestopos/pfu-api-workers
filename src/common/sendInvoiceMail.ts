@@ -5,6 +5,17 @@ export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
     let detalle = "";
     let datosenvio = "";
     let encabezadoCorreo="";
+    let datosCliente = `<tr>
+                  <tr>
+                  <td style="padding-top:20px; font-size:14px; color:#555;">
+                    <p><strong>Datos del Cliente:</strong></p>
+                    <p>Nombre Completo: ${datosFactura.encabezado.NOMBRECLIENTE}</p>
+                    <p>Número Documento: ${datosFactura.encabezado.NUMERODOC}</p>
+                    <p>Dirección: ${datosFactura.encabezado.CORREO}</p>                    
+                    
+                  </td>
+                </tr>
+                `;
     if(sw === 1){
       encabezadoCorreo=`<tr>
                   <td style="font-size: 16px; color: #333333;">
@@ -60,7 +71,6 @@ export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
     datosenvio =
         datosenvio +
         `<tr>
-                  <tr>
                   <td style="padding-top:20px; font-size:14px; color:#555;">
                     <p><strong>Dirección de entrega:</strong></p>
                     <p>Departamento: ${datosFactura.encabezado.DEPARTAMENTO}</p>
@@ -71,7 +81,7 @@ export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
                     </p>
                   </td>
                 </tr>
-                `;
+         `;
     
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -105,7 +115,7 @@ export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
                 </tr>` +
           detalle +
           ` 
-          ` +
+          ` + (sw === 0 ? datosCliente : '') + 
           datosenvio +
           `                
                 <tr>

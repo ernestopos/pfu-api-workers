@@ -9,8 +9,7 @@ import { getCorreosFacturación } from "../dao/ParametersDAO";
 
 export async function generacionFactura(env, invoiceData) {
   try {
-    let result = guardarFactura(env, invoiceData);
-    //await sendDonationEmail(email_address, donationPDF,name);
+    let result = await guardarFactura(env, invoiceData);    
     return result;
   } catch (error) {
     console.error("Fallo la creación de una nueva Factura", error);
