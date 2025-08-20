@@ -1,12 +1,12 @@
 import { Bool, OpenAPIRoute } from "chanfana";
 import { z } from "zod";
-import {  Message } from "../types";
-import { getCategorys } from "../dao/CategoryDAO";
+import { Message } from "../types";
+import { getArticleSizes } from "../dao/SizesDAO";
 
-export class CategoryProxy extends OpenAPIRoute {
+export class SizesProxy extends OpenAPIRoute {
   schema = {
-    tags: ["Generate CATEGORY LIST"],
-    summary: "Generate CATEGORY LIST",
+    tags: ["Generate ARTICLE SIZES LIST"],
+    summary: "Generate ARTICLE SIZES LIST",
     request: {
       params: z.object({
         id: z.number().int().nonnegative(),
@@ -14,7 +14,7 @@ export class CategoryProxy extends OpenAPIRoute {
     },
     responses: {
       "200": {
-        description: "Generate CATEGORY LIST successfully",
+        description: "Generate ARTICLE SIZES LIST successfully",
         content: {
           "application/json": {
             schema: z.object({
@@ -32,15 +32,15 @@ export class CategoryProxy extends OpenAPIRoute {
   };
 
   async handle(c) {
-   const data = await this.getValidatedData<typeof this.schema>();
-	 const  categoryId  = data.params;
-	 const results = await getCategorys(c.env, categoryId.id);
+    const data = await this.getValidatedData<typeof this.schema>();
+    const  productId  = data.params;
+	const results = await getArticleSizes(c.env, productId.id);
     return {
       success: true,
       result: results,
       message: {
-        message: "Generate PRODUCT LIST generated successfully",
-        description: "Generate PRODUCT LIST has been generated successfully.",
+        message: "Generate ARTICLE SIZES LIST has been generated successfully",
+        description: "Generate ARTICLE SIZES LIST has been generated successfully.",
       },
     };
   }

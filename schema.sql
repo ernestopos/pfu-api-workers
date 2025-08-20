@@ -375,3 +375,41 @@ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTA
 
 INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) VALUES ('Equipo Comercial', 'correo enviado al comercial', 'comercial@peerkals.com', 'EMAIL_FACT', 1);
 INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) VALUES ('Equipo Despacho', 'correo enviado a despachos', 'despachos@peerkals.com', 'EMAIL_FACT', 1);
+
+INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Sábanas : Royal Elephant Collection',
+ 'ROPHN001',
+ 'Sábanas hoteleras tipo king en algodón premium, elegantes y sofisticadas, con el sello distintivo del elefante dorado en patrón fino. Una pieza que combina lujo, confort y exclusividad, diseñada para quienes buscan un descanso con estilo',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/ropa_hogar2.png',
+ 'Sábanas hoteleras tipo king en algodón premium, elegantes y sofisticadas, con el sello distintivo del elefante dorado en patrón fino. Una pieza que combina lujo, confort y exclusividad, diseñada para quienes buscan un descanso con estilo',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'ROPHN001',
+ 'Sábanas : Royal Elephant Collection',
+ 'Sábanas : Royal Elephant Collection',
+ 'Sábanas : Royal Elephant Collection',
+ 1);
+
+INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Sábanas : Royal Elephant Casual',
+ 'ROPHN002',
+ 'Sábanas hoteleras tipo king en algodón premium, elegantes y causal, con el sello distintivo del elefante repetido en patrón fino. Una pieza que combina lujo, confort y exclusividad, diseñada para quienes buscan un descanso con estilo',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/ropa_hogar1.png',
+ 'Sábanas hoteleras tipo king en algodón premium, elegantes y causal, con el sello distintivo del elefante repetido en patrón fino. Una pieza que combina lujo, confort y exclusividad, diseñada para quienes buscan un descanso con estilo',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'ROPHN002',
+ 'Sábanas : Royal Elephant Casual',
+ 'Sábanas : Royal Elephant Casual',
+ 'Sábanas : Royal Elephant Casual',
+ 1);
+ 
+INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) VALUES ('KING', 'Dimensiones estándar (Colombia / Latam) Ancho: 2 m - Largo: 200 c, Diseñada para dos personas que desean máximo espacio y comodidad', 'KING', 'ROPAHOGAR', 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (4, 18, 12, 200000, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (4, 19, 12, 200000, 1);

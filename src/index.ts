@@ -11,6 +11,7 @@ import { webHookWompiIntegration } from "./endpoints/webHookWompiIntegration";
 import { InvoiceProxy } from "./endpoints/InvoiceProxy";
 import { CategoryProxy } from "./endpoints/CategoryProxy";
 import { AllCategoryProxy } from "./endpoints/AllCategoryProxy";
+import { SizesProxy } from "./endpoints/SizesProxy";
 
 
 export type PFUBindings = {
@@ -41,6 +42,7 @@ openapi.post("/api/webhook/donations/create", SaveDonationProxy);
 // API FOR SHOPPING CAR INTEGRATION
 openapi.get("/api/shoppingcar/viewproducts", ProductProxy);
 openapi.get("/api/shoppingcar/viewcategorys/:id", CategoryProxy);
+openapi.get("/api/shoppingcar/viewarticlesizes/:id", SizesProxy);
 openapi.get("/api/shoppingcar/viewcategorys", ProductProxy);
 openapi.get("/api/shoppingcar/viewallcategorys", AllCategoryProxy);
 openapi.post("/api/shoppingcar/checkout", InvoiceProxy);
