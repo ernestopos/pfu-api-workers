@@ -58,16 +58,16 @@ export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
                       </tr>
                     </table>
                   </td>
-                </tr>
-                <tr>
+                </tr>                
+                `;
+    });
+    detalle = detalle + `<tr>
                   <td>
                     <p style="font-family: Arial, sans-serif; font-size:16px; font-weight:bold; color:#222; text-align:right; margin-top:-10px;">
                       Total Factura: $ ${datosFactura.encabezado.VALOR_FACT}
                     </p>
                   </td>
-                </tr>
-                `;
-    });
+                </tr>`; 
     datosenvio =
         datosenvio +
         `<tr>
