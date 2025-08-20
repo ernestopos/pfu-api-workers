@@ -42,7 +42,8 @@ export class AddClienProxy extends OpenAPIRoute {
     try {
       const data = await this.getValidatedData<typeof this.schema>();
       const client = data.body;
-      return saveCliente(c.env,client);      
+      const result = await saveCliente(c.env,client);
+      return result;       
     } catch (error) {
       console.error("Fallo la creación de un nuevo cliente", error);
       return {
