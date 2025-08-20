@@ -49,9 +49,6 @@ export async function enviarCorreoConfirmacionFactura(env, dataRequest) {
       dataRequest.data.transaction.reference
     );
    
-    await env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES(?)")
-      .bind(JSON.stringify(encabezado)).all();
-
     if (encabezado.length > 0) {
       let detalle = await obtenerDetalleFactura(env, encabezado[0].IDFACT);
       let datosFactura = {

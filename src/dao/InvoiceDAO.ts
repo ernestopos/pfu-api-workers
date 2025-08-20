@@ -109,9 +109,10 @@ export async function obtenerEncabezadoFactura(env, reference) {
 export async function obtenerDetalleFactura(env, idFact) {
   try {
       const {results}  = await env.DB.prepare(" SELECT "+
-                                  " ART.CODIGO AS CODIGOARTICULO, ART.NOMBRE AS NOMBREARTICULO,ART.IMG_SRC,DETF.CANTIDAD,DETF.VALOR_UNITARIO,DETF.VALOR_TOTAL " +
+                                  " ART.CODIGO AS CODIGOARTICULO, ART.NOMBRE AS NOMBREARTICULO,ART.IMG_SRC,PAR.VALOR AS TALLAPRODUCTO,DETF.CANTIDAD,DETF.VALOR_UNITARIO,DETF.VALOR_TOTAL " +
                                   " FROM DETALL_FACTURA DETF " +
                                   " INNER JOIN PRODUCTO PRO ON PRO.ID = DETF.ID_PRODUCTO " +
+                                  " INNER JOIN PARAMETRO PAR ON PRO.ID_PARAMETRO = PAR.ID " +
                                   " INNER JOIN ARTICULO ART ON ART.ID = PRO.ID_ARTICULO " +
                                   " WHERE DETF.ID_FACTURA = ? ")
       .bind(idFact).all();

@@ -44,7 +44,8 @@ export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
                     <table width="100%" border="0" cellspacing="0" cellpadding="10" style="border:1px solid #ddd; border-radius:6px;">
                       <tr style="background-color:#f9f9f9;">
                         <th align="center">Foto</th>  
-                        <th align="left">Producto</th>                        
+                        <th align="left">Producto</th>
+                        <th align="left">Talla</th>                        
                         <th align="right">Cantidad</th>
                         <th align="right">Precio</th>
                         <th align="right">SubTotal</th>
@@ -52,6 +53,7 @@ export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
                       <tr>
                         <td><img src="${producto.IMG_SRC}" alt="Producto" width="100" height="100" style="border-radius:4px;"></td>
                         <td>${producto.CODIGOARTICULO} - ${producto.NOMBREARTICULO}</td>
+                        <td>${producto.TALLAPRODUCTO}</td>                        
                         <td align="center">${producto.CANTIDAD}</td>
                         <td align="right">${producto.VALOR_UNITARIO}</td>
                         <td align="right">${producto.VALOR_TOTAL}</td>
