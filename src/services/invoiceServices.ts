@@ -43,10 +43,15 @@ export async function actualizarFactura(env, invoiceData) {
 
 export async function enviarCorreoConfirmacionFactura(env, dataRequest) {
   try {
+    
     let encabezado = await obtenerEncabezadoFactura(
       env,
       dataRequest.data.transaction.reference
     );
+   
+    await env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES(?)")
+      .bind(JSON.stringify(encabezado, null, 2)).all();
+
     if (encabezado.length > 0) {
       let detalle = await obtenerDetalleFactura(env, encabezado[0].IDFACT);
       let datosFactura = {
@@ -54,10 +59,10 @@ export async function enviarCorreoConfirmacionFactura(env, dataRequest) {
         detalle: detalle,
       };
 
-      await env.DB.prepare("INSERT INTO PRUEBAS(DATOS) VALUES(?)")
+      await env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES(?)")
       .bind(JSON.stringify(datosFactura, null, 2)).all();
 
-      await env.DB.prepare("INSERT INTO PRUEBAS(DATOS) VALUES(?)")
+      await env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES(?)")
       .bind(JSON.stringify("correo recibido : " + dataRequest.data.transaction.customer_email, null, 2)).all();
 
       await sendInvoiceEmail(dataRequest.data.transaction.customer_email,dataRequest.data.transaction.customer_email, datosFactura, 1);
