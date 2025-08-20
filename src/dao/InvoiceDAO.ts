@@ -35,7 +35,7 @@ export async function guardarFactura(env, invoiceData) {
                                                   " INNER JOIN PRODUCTO PRO ON PRO.ID_ARTICULO = ART.ID " +
                                                   " INNER JOIN PARAMETRO PAR ON PRO.ID_PARAMETRO = PAR.ID " +
                                                   " WHERE ART.ID = ? AND PAR.VALOR= ?")
-      .bind(item.id_articulo,item.talla)
+      .bind(item.id,item.talla)
       .all();
       if(resultsProducto.results && resultsProducto.results.length > 0){
         ID_PRODUCTO = resultsProducto.results[0].ID;
