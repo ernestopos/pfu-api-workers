@@ -38,6 +38,6 @@ export class InvoiceProxy extends OpenAPIRoute{
     async handle(c) {            
 		const data = await this.getValidatedData<typeof this.schema>();
         const invoiceData = data.body;
-		return generacionFactura(c.env, invoiceData);		
+		return await generacionFactura(c.env, invoiceData);		
     };
 }

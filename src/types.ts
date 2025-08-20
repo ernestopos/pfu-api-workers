@@ -61,7 +61,7 @@ export const PntegrityTemplate = z.object({
 
 /* ZOD PARA MANEJO DE FACTURAS */
 const DetalleFacturaSchema = z.object({
-  id_articulo: z.number().int(),
+  id: z.number().int(),
   codigo: z.string().min(1).max(200),
   precio: z.number().int().positive("Precio no válido"),
   talla: z.string().min(1).max(200),
