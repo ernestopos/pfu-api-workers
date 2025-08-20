@@ -19850,10 +19850,10 @@ var init_index_es = __esm({
   }
 });
 
-// .wrangler/tmp/bundle-lF9ejS/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-xVlUT7/middleware-loader.entry.ts
 init_modules_watch_stub();
 
-// .wrangler/tmp/bundle-lF9ejS/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-xVlUT7/middleware-insertion-facade.js
 init_modules_watch_stub();
 
 // src/index.ts
@@ -40137,7 +40137,7 @@ init_modules_watch_stub();
 async function getArticleSizes(env, idArt) {
   try {
     const { results } = await env.DB.prepare(
-      " SELECT PAR.ID,PAR.NOMBRE,PAR.VALOR  FROM ARTICULO ART  INNER JOIN PRODUCTO PRO ON PRO.ID_ARTICULO = ART.ID  INNER JOIN PARAMETRO PAR ON PRO.ID_PARAMETRO = PAR.ID  WHERE ART.ID = ? "
+      " SELECT PAR.ID,PAR.NOMBRE,PAR.VALOR,PRO.DATA_PRECIO  FROM ARTICULO ART  INNER JOIN PRODUCTO PRO ON PRO.ID_ARTICULO = ART.ID  INNER JOIN PARAMETRO PAR ON PRO.ID_PARAMETRO = PAR.ID  WHERE ART.ID = ? "
     ).bind(idArt).all();
     return results;
   } catch (error) {
@@ -40264,7 +40264,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-lF9ejS/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-xVlUT7/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -40297,7 +40297,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-lF9ejS/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-xVlUT7/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

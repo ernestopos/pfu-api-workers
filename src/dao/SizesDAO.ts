@@ -1,7 +1,7 @@
 export async function getArticleSizes(env, idArt) {
   try {
     const {results} = await env.DB.prepare(
-				" SELECT PAR.ID,PAR.NOMBRE,PAR.VALOR " +
+				" SELECT PAR.ID,PAR.NOMBRE,PAR.VALOR,PRO.DATA_PRECIO " +
         " FROM ARTICULO ART " +
         " INNER JOIN PRODUCTO PRO ON PRO.ID_ARTICULO = ART.ID " +
         " INNER JOIN PARAMETRO PAR ON PRO.ID_PARAMETRO = PAR.ID " +
