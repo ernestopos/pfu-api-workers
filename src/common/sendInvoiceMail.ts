@@ -1,5 +1,5 @@
 import { Security } from "./security";
-export async function sendInvoiceEmail(toEmail:any,equipo:any,datosFactura:any,sw:any) {
+export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
   try {
     const apiKey = Security.RESEND_API_KEY;
     let detalle = "";
