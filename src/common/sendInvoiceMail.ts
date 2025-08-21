@@ -9,10 +9,10 @@ export async function sendInvoiceEmail(toEmail,equipo,datosFactura,sw:number) {
                   <tr>
                   <td style="padding-top:20px; font-size:14px; color:#555;">
                     <p><strong>Datos del Cliente:</strong></p>
-                    <p>Nombre Completo: ${datosFactura.encabezado.NOMBRECLIENTE}</p>
-                    <p>Número Documento: ${datosFactura.encabezado.NUMERODOC}</p>
-                    <p>Dirección: ${datosFactura.encabezado.CORREO}</p>                    
-                    
+                    <p>Nombre Completo : ${datosFactura.encabezado.NOMBRECLIENTE}</p>
+                    <p>Número Documento : ${datosFactura.encabezado.NUMERODOC}</p>
+                    <p>Número Teléfono : ${datosFactura.encabezado.TELEFONO}</p>
+                    <p>Correo electrónico : ${datosFactura.encabezado.CORREO}</p>
                   </td>
                 </tr>
                 `;

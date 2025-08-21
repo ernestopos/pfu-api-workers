@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS CLIENTE(
   ID INTEGER PRIMARY KEY AUTOINCREMENT,
   NOMBRE VARCHAR(250),
   NUMERODOC VARCHAR(100) UNIQUE,
+  TELEFONO VARCHAR(100), 
   TIPODOC VARCHAR(100),
   CORREO VARCHAR(250));
 
@@ -410,3 +411,60 @@ VALUES
 INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) VALUES ('KING', 'Dimensiones estándar (Colombia / Latam) Ancho: 2 m - Largo: 200 c, Diseñada para dos personas que desean máximo espacio y comodidad', 'KING', 'ROPAHOGAR', 1);
 INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (4, 18, 12, 200000, 1);
 INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (4, 19, 12, 200000, 1);
+
+INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) VALUES ('GORRA', 'Gorras Surtidas', 'GORRA', 'GORRA', 1);
+
+INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Gorra Rosada PFU',
+ 'GORR001',
+ 'Un accesorio lleno de estilo y frescura. Su tono rosado resalta la elegancia juvenil, perfecto para quienes quieren proyectar energía y actitud positiva',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/gorra_2.png',
+ 'Un accesorio lleno de estilo y frescura. Su tono rosado resalta la elegancia juvenil, perfecto para quienes quieren proyectar energía y actitud positiva',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'ROPHN002',
+ 'Gorra Rosada PFU',
+ 'Gorra Rosada PFU',
+ 'Gorra Rosada PFU',
+ 1);
+
+ INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Gorra Blanca PFU',
+ 'GORR002',
+ 'Minimalismo y clase en una sola pieza. Su color blanco puro combina con todo, transmitiendo limpieza, frescura y versatilidad en cualquier ocasión',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/gorra_1.png',
+ 'Minimalismo y clase en una sola pieza. Su color blanco puro combina con todo, transmitiendo limpieza, frescura y versatilidad en cualquier ocasión',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'ROPHN002',
+ 'Gorra Blanca PFU',
+ 'Gorra Blanca PFU',
+ 'Gorra Blanca PFU',
+ 1);
+
+  INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Gorra Negra PFU',
+ 'GORR002',
+ 'Sobriedad y carácter. La gorra negra PFU es ideal para un look fuerte y atemporal, un básico indispensable que refleja seguridad y estilo urbano',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/gorra_3.png',
+ 'Sobriedad y carácter. La gorra negra PFU es ideal para un look fuerte y atemporal, un básico indispensable que refleja seguridad y estilo urbano',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'ROPHN002',
+ 'Gorra Negra PFU',
+ 'Gorra Negra PFU',
+ 'Gorra Negra PFU',
+ 1);
+
+ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 20, 13, 50000, 1);
+ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 21, 13, 50000, 1);
+ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 22, 13, 50000, 1);
