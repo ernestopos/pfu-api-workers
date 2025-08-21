@@ -9,10 +9,11 @@ export async function saveCliente(env, client) {
       .all();
 
     if (results.length === 0) {
-      await env.DB.prepare("INSERT INTO CLIENTE(NOMBRE,NUMERODOC,TIPODOC,CORREO) VALUES (?, ?, ?, ?)")
+      await env.DB.prepare("INSERT INTO CLIENTE(NOMBRE,NUMERODOC,TIPODOC,TELEFONO,CORREO) VALUES (?, ?, ?, ?, ?)")
       .bind(client.customer_name,      
             client.clientid,
             client.clientidtype,
+            client.customer_phone,
             client.customer_email
         )
       .all();
