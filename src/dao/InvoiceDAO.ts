@@ -89,7 +89,7 @@ export async function actualizarEstadoFactura(env, dataRequest) {
 export async function obtenerEncabezadoFactura(env, reference) {
   try {
       const {results}  =  await env.DB.prepare("SELECT "+
-                           " FACT.ID AS IDFACT,CLI.NOMBRE AS NOMBRECLIENTE,CLI.NUMERODOC,CLI.CORREO,FACT.ID_TRANSATION,FACT.CODIGO, " +
+                           " FACT.ID AS IDFACT,CLI.NOMBRE AS NOMBRECLIENTE,CLI.NUMERODOC,CLI.CORREO,CLI.TELEFONO,FACT.ID_TRANSATION,FACT.CODIGO, " +
                            " FACT.FECHA_VENTA,FACT.VALOR_FACT,FACT.MONEDA,FACT.DEPARTAMENTO,FACT.CIUDAD,FACT.DIRECCION,FACT.ESTADO,FACT.ARTICULO_ENVIADO "+
                            " FROM FACTURA FACT " +
                            " INNER JOIN CLIENTE CLI ON CLI.ID = FACT.ID_CLIENTE " +
