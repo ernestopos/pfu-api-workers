@@ -18,7 +18,7 @@ export const DonationSchema = z.object({
   reference: z.string().max(50),
   customer_name: z.string().max(100),
   customer_email: z.string().email().max(100),
-  customer_phone: z.string().email().max(100).optional(),
+  customer_phone: z.string().max(100).optional(),
   amount_in_cents: z.number().int().nonnegative(),
   currency: z.string().max(10),
   date: z.coerce.date(),
