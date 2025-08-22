@@ -468,3 +468,101 @@ VALUES
  INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 20, 13, 50000, 1);
  INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 21, 13, 50000, 1);
  INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 22, 13, 50000, 1);
+
+INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Pulsera Negra Solidaria PFU',
+ 'PULS001',
+ 'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/manilla_1.png',
+ 'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'PULS001',
+ 'Pulsera Negra Solidaria PFU',
+ 'Pulsera Negra Solidaria PFU',
+ 'Pulsera Negra Solidaria PFU',
+ 1);
+
+ INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Pulsera Rosada Solidaria PFU',
+ 'PULS001',
+ 'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/manilla_2.png',
+ 'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'PULS001',
+ 'Pulsera Rosada Solidaria PFU',
+ 'Pulsera Rosada Solidaria PFU',
+ 'Pulsera Rosada Solidaria PFU',
+ 1);
+
+ INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Pulsera Blanca Solidaria PFU',
+ 'PULS001',
+ 'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/manilla_3.png',
+ 'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'PULS001',
+ 'Pulsera Blanca Solidaria PFU',
+ 'Pulsera Blanca Solidaria PFU',
+ 'Pulsera Blanca Solidaria PFU',
+ 1);
+
+ INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) 
+ VALUES ('PULSERA', 'Pulseras Surtidas', 'PULSERA', 'PULSERA', 1);
+
+ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 23, 14, 15000, 1);
+ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 24, 14, 15000, 1);
+ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 25, 14, 15000, 1);
+
+INSERT INTO PARAMETRO (NOMBRE, DESCRIPCION, VALOR, AGRUPADOR, ESTADO) 
+VALUES ('MOCHILA', 'Mochilas Surtidas', 'MOCHILA', 'MOCHILA', 1);
+
+INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Mochila Ébano Blanco con líneas Doradas',
+ 'MOCH001',
+ 'Mochila artesanal estilo Wayuu en tono negro profundo, realzada con líneas y logo en dorado que aportan elegancia y modernidad',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/mochila_1.png',
+ 'Mochila artesanal estilo Wayuu en tono negro profundo, realzada con líneas y logo en dorado que aportan elegancia y modernidad',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'MOCH001',
+ 'Mochila Ébano Blanco con líneas Doradas',
+ 'Mochila Ébano Blanco con líneas Doradas',
+ 'Mochila Ébano Blanco con líneas Doradas',
+ 1);
+
+ INSERT INTO ARTICULO 
+(NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
+VALUES 
+('Mochila Ébano Negra con líneas Doradas',
+ 'MOCH001',
+ 'Mochila artesanal estilo Wayuu en tono negro profundo, realzada con líneas y logo en dorado que aportan elegancia y modernidad',
+ 'wp-block-image size-large',
+ 'https://www.peerkals.com/wp/wp-content/uploads/2025/08/mochila_2.png',
+ 'Mochila artesanal estilo Wayuu en tono negro profundo, realzada con líneas y logo en dorado que aportan elegancia y modernidad',
+ 'wp-image-231 camisa-preview',
+ 'handleClick(this)',
+ 'MOCH001',
+ 'Mochila Ébano Negra con líneas Doradas',
+ 'Mochila Ébano Negra con líneas Doradas',
+ 'Mochila Ébano Negra con líneas Doradas',
+ 1);
+
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 26, 15, 145000, 1);
+INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTADO) VALUES (5, 27, 15, 145000, 1);
