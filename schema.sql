@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS DETALL_FACTURA (
 
 INSERT INTO CATEGORIA (NOMBRE,CODIGO,DESCRIPCION,ESTADO) VALUES ('Camisas Tipo Polo Unisex', 'ATP001', 'Camisas Tipo Polo Unisex', 1);
 INSERT INTO CATEGORIA (NOMBRE,CODIGO,DESCRIPCION,ESTADO) VALUES ('Ropa de niños', 'ROPN001', 'Ropa de niños', 1);
-INSERT INTO CATEGORIA (NOMBRE,CODIGO,DESCRIPCION,ESTADO) VALUES ('Pillamas', 'PILL001', 'Pillamas', 1);
+INSERT INTO CATEGORIA (NOMBRE,CODIGO,DESCRIPCION,ESTADO) VALUES ('Pijamas', 'PILL001', 'Pijamas', 1);
 INSERT INTO CATEGORIA (NOMBRE,CODIGO,DESCRIPCION,ESTADO) VALUES ('Ropa de Hogar', 'ROPH001', 'Ropa de Hogar', 1);
 INSERT INTO CATEGORIA (NOMBRE,CODIGO,DESCRIPCION,ESTADO) VALUES ('Accesorios', 'ACCE001', 'Accesorios', 1);
 
@@ -261,7 +261,7 @@ INSERT INTO PRODUCTO (ID_CATEGORIA, ID_ARTICULO, ID_PARAMETRO, DATA_PRECIO, ESTA
 INSERT INTO ARTICULO 
 (NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
 VALUES 
-('Pillamas para niños: Pijama Cósmica Azul Cielo',
+('Pijamas para niños: Pijama Cósmica Azul Cielo',
  'PILLN005',
  'Hermosa pijama en tonos azul cielo con estampado sutil de cohetes y lunas desvanecidos. Incluye el logo oficial, brindando un diseño único que combina comodidad y aventura espacial para los más pequeños',
  'wp-block-image size-large',
@@ -270,15 +270,15 @@ VALUES
  'wp-image-231 camisa-preview',
  'handleClick(this)',
  'PILLN005',
- 'Pillamas para niños: Pijama Cósmica Azul Cielo',
- 'Pillamas para niños: Pijama Cósmica Azul Cielo',
- 'Pillamas para niños: Pijama Cósmica Azul Cielo',
+ 'Pijamas para niños: Pijama Cósmica Azul Cielo',
+ 'Pijamas para niños: Pijama Cósmica Azul Cielo',
+ 'Pijamas para niños: Pijama Cósmica Azul Cielo',
  1);
 
  INSERT INTO ARTICULO 
 (NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
 VALUES 
-('Pillamas para niñas: Conjunto Rosado',
+('Pijamas para niñas: Conjunto Rosado',
  'PILLN006',
  'Dulce pijama tipo batica en color rosado, con detalles suaves y delicados. Perfecta para brindar confort y ternura en las noches de descanso',
  'wp-block-image size-large',
@@ -287,15 +287,15 @@ VALUES
  'wp-image-231 camisa-preview',
  'handleClick(this)',
  'PILLN006',
- 'Pillamas para niñas: Conjunto Rosado',
- 'Pillamas para niñas: Conjunto Rosado',
- 'Pillamas para niñas: Conjunto Rosado',
+ 'Pijamas para niñas: Conjunto Rosado',
+ 'Pijamas para niñas: Conjunto Rosado',
+ 'Pijamas para niñas: Conjunto Rosado',
  1);
 
  INSERT INTO ARTICULO 
 (NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
 VALUES 
-('Pillamas para bebes: Conjunto Rosado',
+('Pijamas para bebes: Conjunto Rosado',
  'PILLN007',
  'Dulce pijama tipo batica en color rosado, con detalles suaves y delicados. Perfecta para brindar confort y ternura en las noches de descanso',
  'wp-block-image size-large',
@@ -304,15 +304,15 @@ VALUES
  'wp-image-231 camisa-preview',
  'handleClick(this)',
  'PILLN007',
- 'Pillamas para bebes: Conjunto Rosado',
- 'Pillamas para bebes: Conjunto Rosado',
- 'Pillamas para bebes: Conjunto Rosado',
+ 'Pijamas para bebes: Conjunto Rosado',
+ 'Pijamas para bebes: Conjunto Rosado',
+ 'Pijamas para bebes: Conjunto Rosado',
  1);
 
   INSERT INTO ARTICULO 
 (NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
 VALUES 
-('Pillamas para Mujer: Pijama Rosada Esencial',
+('Pijamas para Mujer: Pijama Rosada Esencial',
  'PILLN008',
  'Elegante conjunto de dos piezas en tono rosado, con el logo oficial estampado delicadamente. Diseñada para ofrecer confort y estilo, perfecta para noches relajadas y llenas de encanto',
  'wp-block-image size-large',
@@ -321,9 +321,9 @@ VALUES
  'wp-image-231 camisa-preview',
  'handleClick(this)',
  'PILLN008',
- 'Pillamas para Mujer: Pijama Rosada Esencial',
- 'Pillamas para Mujer: Pijama Rosada Esencial',
- 'Pillamas para Mujer: Pijama Rosada Esencial',
+ 'Pijamas para Mujer: Pijama Rosada Esencial',
+ 'Pijamas para Mujer: Pijama Rosada Esencial',
+ 'Pijamas para Mujer: Pijama Rosada Esencial',
  1);
 
 INSERT INTO ARTICULO 
@@ -425,7 +425,7 @@ VALUES
  'Un accesorio lleno de estilo y frescura. Su tono rosado resalta la elegancia juvenil, perfecto para quienes quieren proyectar energía y actitud positiva',
  'wp-image-231 camisa-preview',
  'handleClick(this)',
- 'ROPHN002',
+ 'GORR001',
  'Gorra Rosada PFU',
  'Gorra Rosada PFU',
  'Gorra Rosada PFU',
@@ -452,14 +452,14 @@ VALUES
 (NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
 VALUES 
 ('Gorra Negra PFU',
- 'GORR002',
+ 'GORR003',
  'Sobriedad y carácter. La gorra negra PFU es ideal para un look fuerte y atemporal, un básico indispensable que refleja seguridad y estilo urbano',
  'wp-block-image size-large',
  'https://www.peerkals.com/wp/wp-content/uploads/2025/08/gorra_3.png',
  'Sobriedad y carácter. La gorra negra PFU es ideal para un look fuerte y atemporal, un básico indispensable que refleja seguridad y estilo urbano',
  'wp-image-231 camisa-preview',
  'handleClick(this)',
- 'ROPHN002',
+ 'GORR003',
  'Gorra Negra PFU',
  'Gorra Negra PFU',
  'Gorra Negra PFU',
@@ -490,14 +490,14 @@ VALUES
 (NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
 VALUES 
 ('Pulsera Rosada Solidaria PFU',
- 'PULS001',
+ 'PULS002',
  'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
  'wp-block-image size-large',
  'https://www.peerkals.com/wp/wp-content/uploads/2025/08/manilla_2.png',
  'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
  'wp-image-231 camisa-preview',
  'handleClick(this)',
- 'PULS001',
+ 'PULS002',
  'Pulsera Rosada Solidaria PFU',
  'Pulsera Rosada Solidaria PFU',
  'Pulsera Rosada Solidaria PFU',
@@ -507,14 +507,14 @@ VALUES
 (NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
 VALUES 
 ('Pulsera Blanca Solidaria PFU',
- 'PULS001',
+ 'PULS003',
  'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
  'wp-block-image size-large',
  'https://www.peerkals.com/wp/wp-content/uploads/2025/08/manilla_3.png',
  'Manilla estilo banda de caucho, en un elegante tono rosado, con el icónico elefante de PFU como símbolo de unión y propósito',
  'wp-image-231 camisa-preview',
  'handleClick(this)',
- 'PULS001',
+ 'PULS003',
  'Pulsera Blanca Solidaria PFU',
  'Pulsera Blanca Solidaria PFU',
  'Pulsera Blanca Solidaria PFU',
@@ -551,14 +551,14 @@ VALUES
 (NOMBRE, CODIGO, DESCRIPCION, FIGURE_CLASS, IMG_SRC, IMG_ALT, IMG_CLASS, IMG_ON_CLICK, DATA_CODIGO, DATA_NOMBRE, DATA_DESCRIPCION, FIGCAPTION, ESTADO) 
 VALUES 
 ('Mochila Ébano Negra con líneas Doradas',
- 'MOCH001',
+ 'MOCH002',
  'Mochila artesanal estilo Wayuu en tono negro profundo, realzada con líneas y logo en dorado que aportan elegancia y modernidad',
  'wp-block-image size-large',
  'https://www.peerkals.com/wp/wp-content/uploads/2025/08/mochila_2.png',
  'Mochila artesanal estilo Wayuu en tono negro profundo, realzada con líneas y logo en dorado que aportan elegancia y modernidad',
  'wp-image-231 camisa-preview',
  'handleClick(this)',
- 'MOCH001',
+ 'MOCH002',
  'Mochila Ébano Negra con líneas Doradas',
  'Mochila Ébano Negra con líneas Doradas',
  'Mochila Ébano Negra con líneas Doradas',
