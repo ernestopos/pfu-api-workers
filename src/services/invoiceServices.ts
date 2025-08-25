@@ -56,19 +56,20 @@ export async function enviarCorreoConfirmacionFactura(env, dataRequest) {
         detalle: detalle,
       };
       
+      /*
       await env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES(?)")
       .bind(JSON.stringify(datosFactura)).all();
 
       await env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES(?)")
-      .bind(dataRequest.data.transaction.customer_email).all();
+      .bind(dataRequest.data.transaction.customer_email).all();*/
 
       await sendInvoiceEmail(dataRequest.data.transaction.customer_email,dataRequest.data.transaction.customer_email, datosFactura, 1);
       let correos = await getCorreosFacturacion(env);
-      console.log(correos);
+      
       for (const correo of correos) {
 
-        await env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES(?)")
-      .bind(JSON.stringify(correo)).all();
+      /*await env.DB.prepare("INSERT INTO PRUEBA(DATOS) VALUES(?)")
+      .bind(JSON.stringify(correo)).all();*/
 
          await sendInvoiceEmail(correo.EMAIL,correo.TEAM, datosFactura, 0);
       }
